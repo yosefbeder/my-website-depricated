@@ -6,13 +6,13 @@ import {
 import classes from '../../styles/[id].module.scss';
 import React from 'react';
 import Markdown from '../../components/Markdown';
-import { ArticleProps } from '../../components/Article';
 import Image from 'next/image';
 import Link from '../../components/Link';
 import fs from 'fs';
 import path from 'path';
+import { ArticleType } from '../../types';
 
-interface PageProps extends ArticleProps {
+interface PageProps extends ArticleType {
   markdown: string;
 }
 
@@ -22,10 +22,9 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
   return {
     props: {
       id: 'bad-arguments-notes',
-      imgSrc: '/images/articles/bad-arguments-notes.jpg',
       title: 'My notes on Bag Arguments',
       description:
-        'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita quam consequatur eveniet officiis, est quia sequi ab reprehenderit cumque quod nostrum, cum laudantium reiciendis explicabo rerum, aliquid voluptates hic blanditiis?',
+        'A logical fallacy is an error in reasoning common enough to warrant a fancy name. Knowing how to spot and identify fallacies is a priceless skill. It can save you time, money, and personal dignity.',
       date: '2021-7-1',
       tags: ['books'],
       markdown: fs.readFileSync(
@@ -37,7 +36,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
 };
 
 const Article = ({
-  imgSrc,
+  id,
   title,
   description,
   date,
@@ -48,7 +47,7 @@ const Article = ({
     <>
       <header className={classes.header}>
         <Image
-          src={imgSrc}
+          src={`/images/${id}.jpg`}
           alt={title}
           width={704}
           height={396}

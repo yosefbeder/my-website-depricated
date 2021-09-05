@@ -2,20 +2,11 @@ import React from 'react';
 import Link from '../components/Link';
 import Image from 'next/image';
 import classes from '../styles/Article.module.scss';
+import { ArticleType } from '../types';
 
-export interface ArticleProps {
-  id: string;
-  title: string;
-  imgSrc: string;
-  tags: string[];
-  description: string;
-  date: string;
-}
-
-const Article: React.FC<ArticleProps> = ({
+const Article: React.FC<ArticleType> = ({
   id,
   title,
-  imgSrc,
   tags,
   description,
   date,
@@ -25,7 +16,7 @@ const Article: React.FC<ArticleProps> = ({
       <Image
         className={classes.img}
         objectFit="cover"
-        src={imgSrc}
+        src={`/images/${id}.jpg`}
         alt={title}
         width={384}
         height={256}

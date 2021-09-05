@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import Article, { ArticleProps } from './Article';
+import Article from './Article';
 import classes from '../styles/Article.module.scss';
+import { ArticleType } from '../types';
 
 interface ArticlesListProps {
-  articles: ArticleProps[];
+  articles: ArticleType[];
 }
 
 const ArticlesList: React.FC<ArticlesListProps> = ({ articles }) => {
