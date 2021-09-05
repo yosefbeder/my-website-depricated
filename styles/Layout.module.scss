@@ -1,0 +1,33 @@
+@import './variables.scss';
+
+.container {
+  max-width: $screen-lg;
+  gap: $space-xl;
+  margin: 0 auto;
+
+  overflow-y: scroll;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.content {
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.content::-webkit-scrollbar {
+  width: 0;
+}
+
+@media (min-width: $screen-sm) {
+  .container {
+    display: flex;
+    gap: 0;
+    max-height: 100vh;
+
+    overflow: hidden;
+  }
+  .content {
+    flex: 1;
+  }
+}

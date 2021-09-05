@@ -1,0 +1,81 @@
+@import './variables.scss';
+
+$sm: 20rem;
+$md: 22rem;
+$lg: 24rem;
+
+.list-container {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  grid-template-rows: masonry;
+  gap: $space-lg;
+  padding: $space-lg;
+}
+
+@media (min-width: $screen-lg) {
+  .list-container {
+    grid-template-columns: repeat(2, #{$sm});
+  }
+}
+
+.container {
+  height: max-content;
+  // in regular mobile phones
+  width: $md;
+  border-radius: $rounded-md;
+  box-shadow: $shadow-lg $color-gray-200;
+  background-color: $color-white;
+
+  overflow: hidden;
+}
+
+.img {
+  border-radius: 0;
+}
+
+@media (min-width: $screen-md) {
+  .container {
+    // in medium screens (there's just one column)
+    width: $lg;
+  }
+}
+
+@media (min-width: $screen-lg) {
+  // in large screens 2 columns
+  .container {
+    width: $sm;
+  }
+}
+
+.content {
+  padding: $space-lg;
+
+  & > * {
+    margin: 0;
+  }
+
+  & > h3 {
+    margin-bottom: $space-md;
+  }
+
+  & > p {
+    margin-bottom: $space-lg;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+.tags-container {
+  display: flex;
+  gap: $space-md;
+  margin-bottom: $space-lg;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

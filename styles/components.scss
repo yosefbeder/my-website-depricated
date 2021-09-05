@@ -1,0 +1,35 @@
+@import './variables.scss';
+
+.btn {
+  display: block;
+  padding: $space-md $space-lg;
+  text-transform: capitalize;
+  border-radius: $rounded-lg;
+  width: max-content;
+
+  &--primary {
+    color: $color-blue-50;
+    background-color: $color-blue-400;
+    box-shadow: $shadow-sm $color-blue-100;
+    transition: background-color 100ms, box-shadow 100ms;
+
+    &:hover {
+      background-color: $color-blue-500;
+      box-shadow: $shadow-md $color-blue-100;
+    }
+  }
+}
+
+.link:link,
+.link:visited {
+  color: $color-blue-400;
+  transition: color 100ms;
+}
+
+.link:hover {
+  color: $color-blue-500;
+}
+
+.link:active {
+  color: $color-blue-600;
+}

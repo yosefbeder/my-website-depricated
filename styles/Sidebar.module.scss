@@ -1,0 +1,93 @@
+@import './variables.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-xl;
+
+  padding: $space-lg;
+  border-bottom: 1px solid $color-gray-200;
+}
+
+.avatar {
+  border-radius: $rounded-full;
+}
+
+.personal-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-md;
+
+  & > * {
+    margin: 0;
+  }
+}
+
+.nav,
+.contact-info {
+  display: flex;
+  gap: $space-lg;
+}
+
+@media (min-width: $screen-sm) {
+  .container {
+    flex: 0 0 16.5rem;
+    border-bottom: 0;
+    border-right: 1px solid $color-gray-200;
+    align-self: flex-start;
+  }
+
+  .nav {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: $screen-md) {
+  .container {
+    flex: 0 0 20rem;
+  }
+}
+
+.nav-link {
+  font-size: $text-md;
+  color: $color-gray-500;
+  transition: color 100ms;
+
+  &:hover {
+    color: $color-gray-700;
+  }
+
+  &:active,
+  &--selected,
+  &--selected:hover {
+    color: $color-blue-600;
+  }
+}
+
+.icon-link {
+  & > svg {
+    color: $color-gray-500;
+    width: 2.2rem;
+    height: 2.2rem;
+
+    transition: color 100ms;
+  }
+
+  &--twitter:hover > svg {
+    color: $color-twitter;
+  }
+
+  &--github:hover > svg {
+    color: $color-github;
+  }
+
+  &--mail:hover > svg {
+    color: $color-mail;
+  }
+}
+
+.copyright {
+  align-self: center;
+}

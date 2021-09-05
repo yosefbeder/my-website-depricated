@@ -1,0 +1,123 @@
+@import './variables.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-primary;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: $font-secondary;
+  margin: 0;
+  color: $color-gray-900;
+  font-weight: 900;
+}
+
+h1 {
+  font-size: $text-2xl;
+  margin-bottom: $space-xl;
+}
+
+h2 {
+  font-size: $text-xl;
+  margin-bottom: $space-xl;
+}
+
+h3 {
+  font-size: $text-lg;
+  margin-bottom: $space-lg;
+}
+
+h4 {
+  font-size: $text-md;
+  margin-bottom: $space-md;
+  color: $color-gray-800;
+}
+
+p,
+li,
+ul {
+  font-size: $text-base;
+  font-weight: 400;
+  color: $color-gray-700;
+  line-height: 1.5;
+  max-width: 60ch;
+  margin-bottom: $space-md;
+}
+
+ul {
+  list-style-type: unset;
+
+  li {
+    margin-left: $space-lg;
+
+    ul {
+      margin-top: $space-md;
+      list-style-type: circle;
+    }
+  }
+}
+
+small {
+  font-size: $text-sm;
+  color: $color-gray-500;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+  border-radius: $rounded-md;
+}
+
+blockquote {
+  position: relative;
+
+  display: flex;
+
+  background-color: $color-blue-100;
+  margin: $space-lg 0;
+  padding: $space-lg $space-xl;
+  border-radius: $rounded-md;
+  quotes: auto;
+
+  color: $color-gray-800;
+
+  overflow: hidden;
+}
+
+blockquote > p {
+  margin: 0;
+}
+
+blockquote::before {
+  color: $color-blue-200;
+  position: absolute;
+  top: -0.75rem;
+  left: 0;
+  content: open-quote;
+  font-family: sans-serif;
+  font-size: $text-4xl;
+}
+
+article {
+  padding: $space-lg;
+}
+
+@media (min-width: $screen-md) {
+  article {
+    padding: $space-xl;
+  }
+}
+
+pre > code {
+  padding: $space-lg !important;
+  border-radius: $rounded-md;
+}
