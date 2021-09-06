@@ -6,7 +6,7 @@ const Layout: React.FC = ({ children }) => {
   return (
     <div className={classes.container}>
       <Sidebar />
-      <main className={classes.content}>{children}</main>
+      {children}
     </div>
   );
 };

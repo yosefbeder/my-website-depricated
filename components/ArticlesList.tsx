@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
+import { ArticleType } from '../types';
 import Article from './Article';
 import classes from '../styles/Article.module.scss';
-import { ArticleType } from '../types';
 
 interface ArticlesListProps {
   articles: ArticleType[];
@@ -56,9 +56,8 @@ const ArticlesList: React.FC<ArticlesListProps> = ({ articles }) => {
       console.log("You're browser does support it!");
     }
   }, []);
-
   return (
-    <div className={classes['list-container']} ref={containerRef}>
+    <div className={classes.list} ref={containerRef}>
       {articles.map(article => (
         <Article key={article.id} {...article} />
       ))}

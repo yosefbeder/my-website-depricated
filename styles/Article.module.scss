@@ -4,18 +4,18 @@ $sm: 20rem;
 $md: 22rem;
 $lg: 24rem;
 
-.list-container {
-  width: 100%;
+.list {
   display: grid;
   justify-content: center;
   grid-template-rows: masonry;
-  gap: $space-lg;
-  padding: $space-lg;
+  gap: $space-xl;
+  width: 100%;
+  padding: $space-xl;
 }
 
 @media (min-width: $screen-lg) {
-  .list-container {
-    grid-template-columns: repeat(2, #{$sm});
+  .list {
+    grid-template-columns: repeat(2, $sm);
   }
 }
 

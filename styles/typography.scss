@@ -20,7 +20,7 @@ h4 {
 
 h1 {
   font-size: $text-2xl;
-  margin-bottom: $space-xl;
+  margin-bottom: $space-2xl;
 }
 
 h2 {
@@ -50,11 +50,16 @@ ul {
   margin-bottom: $space-md;
 }
 
+i {
+  font-weight: 300;
+  font-style: italic;
+}
+
 ul {
   list-style-type: unset;
 
   li {
-    margin-left: $space-lg;
+    margin-left: $space-xl;
 
     ul {
       margin-top: $space-md;
@@ -84,7 +89,7 @@ blockquote {
 
   background-color: $color-blue-100;
   margin: $space-lg 0;
-  padding: $space-lg $space-xl;
+  padding: $space-lg $space-3xl;
   border-radius: $rounded-md;
   quotes: auto;
 
@@ -101,20 +106,10 @@ blockquote::before {
   color: $color-blue-200;
   position: absolute;
   top: -0.75rem;
-  left: 0;
+  left: 0.25rem;
   content: open-quote;
   font-family: sans-serif;
   font-size: $text-4xl;
-}
-
-article {
-  padding: $space-lg;
-}
-
-@media (min-width: $screen-md) {
-  article {
-    padding: $space-xl;
-  }
 }
 
 pre > code {

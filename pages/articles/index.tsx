@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import classes from '../../styles/articles-page.module.scss';
+import { ArticleType } from '../../types';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import ArticlesList from '../../components/ArticlesList';
 
 const articles = [
@@ -49,8 +52,24 @@ const articles = [
   },
 ];
 
-const Articles = () => {
-  return <ArticlesList articles={articles} />;
+interface ArticlesProps {
+  articles: ArticleType[];
+}
+
+export const getStaticProps: GetStaticProps<ArticlesProps> = () => {
+  return {
+    props: { articles },
+  };
+};
+
+const Articles = ({
+  articles,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
+  return (
+    <main className={classes.container}>
+      <ArticlesList articles={articles} />
+    </main>
+  );
 };
 
 export default Articles;

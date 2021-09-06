@@ -16,7 +16,7 @@ const Article: React.FC<ArticleType> = ({
       <Image
         className={classes.img}
         objectFit="cover"
-        src={`/images/${id}.jpg`}
+        src={`/images/articles/${id}.jpg`}
         alt={title}
         width={384}
         height={256}
@@ -38,7 +38,7 @@ const Article: React.FC<ArticleType> = ({
           <small>
             {new Intl.DateTimeFormat('en', {
               year: 'numeric',
-              month: 'long',
+              month: 'short',
               day: 'numeric',
             }).format(new Date(date))}
           </small>

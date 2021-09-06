@@ -21,20 +21,18 @@ export const articles: ArticleType[] = JSON.parse(
 );
 
 export const getArticles = (tags?: string[]) => {
-  if (tags) {
-    let result = articles;
+  let result = articles;
 
+  if (tags) {
     tags.forEach(tag => {
       result = result.filter(({ tags }) => tags.includes(tag));
     });
-
-    return result;
-  } else {
-    return articles;
   }
+
+  return result;
 };
 
-const getHanlder = (req: NextApiRequest, res: NextApiResponse) => {
+const getHandler = (req: NextApiRequest, res: NextApiResponse) => {
   if (req.query.tags) {
     let tags = (req.query.tags as string).split(',');
 
@@ -114,10 +112,7 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     } catch (err) {
       articles.pop();
 
-      res.status(500).json({
-        success: false,
-        error: "Couldn't upload the article to the server",
-      });
+      throw { status: 500, error: "Couldn't write to the database" };
     }
   } catch (err) {
     res
@@ -127,7 +122,7 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const hanlder = (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === 'GET') getHanlder(req, res);
+  if (req.method === 'GET') getHandler(req, res);
   else if (req.method === 'POST') postHandler(req, res);
   else
     res.status(405).json({

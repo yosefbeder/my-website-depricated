@@ -4,30 +4,40 @@
   max-width: $screen-lg;
   gap: $space-xl;
   margin: 0 auto;
+  height: 100vh;
 
-  overflow-y: scroll;
-  scrollbar-width: none;
-  scroll-behavior: smooth;
-}
-
-.content {
   overflow-y: scroll;
   scrollbar-width: none;
 }
 
-.content::-webkit-scrollbar {
+.container::-webkit-scrollbar {
   width: 0;
+}
+
+.typography-main {
+  flex: 1;
+  padding: $space-2xl $space-lg;
 }
 
 @media (min-width: $screen-sm) {
   .container {
     display: flex;
-    gap: 0;
-    max-height: 100vh;
 
     overflow: hidden;
   }
-  .content {
-    flex: 1;
+
+  .typography-main {
+    overflow-y: scroll;
+    scrollbar-width: none;
+  }
+
+  .typography-main::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+@media (min-width: $screen-md) {
+  .typography-main {
+    padding: $space-xl;
   }
 }
