@@ -112,7 +112,7 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     } catch (err) {
       articles.pop();
 
-      throw { status: 500, error: "Couldn't write to the database" };
+      throw { status: 500, message: "Couldn't write to the database" };
     }
   } catch (err) {
     res

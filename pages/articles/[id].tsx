@@ -1,4 +1,4 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import classes from '../../styles/article-page.module.scss';
 import React from 'react';
 import Markdown from '../../components/Markdown';
@@ -7,6 +7,7 @@ import Link from '../../components/Link';
 import { ArticleType } from '../../types';
 import { getArticle } from '../api/articles/[id]';
 import TypographyMain from '../../components/TypographyMain';
+import { getArticles } from '../api/articles';
 
 export interface ArticlePageProps extends ArticleType {
   markdown: string;
@@ -15,12 +16,28 @@ export interface ArticlePageProps extends ArticleType {
 const formatTime = (m: number, s: number) =>
   `${m.toString().padStart(2, '0')}:${s.toString().padEnd(2, '0')}`;
 
-export const getServerSideProps: GetServerSideProps<ArticlePageProps> = async ({
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: getArticles().map(({ id }) => ({ params: { id } })),
+    fallback: 'blocking',
+  };
+};
+
+export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({
   params,
 }) => {
-  return {
-    props: await getArticle('my-notes-on-bad-arguments'),
-  };
+  try {
+    const article = await getArticle(params!.id as string);
+
+    return {
+      props: article,
+      revalidate: 60,
+    };
+  } catch (_) {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 const Article = ({
@@ -30,7 +47,7 @@ const Article = ({
   date,
   tags,
   markdown,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   const length = markdown.split(' ').length;
   const m = Math.trunc(length / 200);
   const s = Math.round((length % 200) * 100) / 100;

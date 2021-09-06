@@ -56,6 +56,7 @@ const ArticlesList: React.FC<ArticlesListProps> = ({ articles }) => {
       console.log("You're browser does support it!");
     }
   }, []);
+
   return (
     <div className={classes.list} ref={containerRef}>
       {articles.map(article => (

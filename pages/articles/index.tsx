@@ -3,6 +3,7 @@ import classes from '../../styles/articles-page.module.scss';
 import { ArticleType } from '../../types';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import ArticlesList from '../../components/ArticlesList';
+import { getArticles } from '../api/articles';
 
 const articles = [
   {
@@ -58,7 +59,8 @@ interface ArticlesProps {
 
 export const getStaticProps: GetStaticProps<ArticlesProps> = () => {
   return {
-    props: { articles },
+    props: { articles: getArticles() },
+    revalidate: 60,
   };
 };
 
