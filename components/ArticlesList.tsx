@@ -52,8 +52,6 @@ const ArticlesList: React.FC<ArticlesListProps> = ({ articles }) => {
       window.addEventListener('resize', () => {
         layout();
       });
-    } else {
-      console.log("You're browser does support it!");
     }
   }, []);
 

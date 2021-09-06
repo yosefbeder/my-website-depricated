@@ -66,7 +66,7 @@ const Article = ({
         <h1>{title}</h1>
         <div className={classes['tags-container']}>
           {tags.map(tag => (
-            <Link key={tag} href="/">
+            <Link key={tag} href={`/articles?tags=${tag}`}>
               {tag}
             </Link>
           ))}
