@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from '../styles/Sidebar.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,31 +8,64 @@ import {
   FaTwitter as TwitterIcon,
   FaEnvelope as MailIcon,
 } from 'react-icons/fa';
+import useSWR from 'swr';
 
 const routes = [
   { href: '/', name: 'Home' },
   { href: '/articles', name: 'Articles' },
 ];
 
+interface UserDataType {
+  avatarUrl: string;
+  name: string;
+  bio: string;
+  email: string;
+  githubUrl: string;
+  twitterUsername: string;
+}
+
+const fetcher = async (url: string) => {
+  const {
+    name,
+    html_url: githubUrl,
+    avatar_url: avatarUrl,
+    bio,
+    email,
+    twitter_username: twitterUsername,
+  } = await fetch(url).then(req => req.json());
+
+  return {
+    name,
+    githubUrl,
+    avatarUrl,
+    bio,
+    twitterUsername,
+    email,
+  } as UserDataType;
+};
+
 const Sidebar = () => {
   const { route } = useRouter();
+
+  const { data, error } = useSWR<UserDataType>(
+    'https://api.github.com/users/yosefbeder',
+    fetcher,
+  );
+
+  if (!data) return <div></div>;
+
+  const { name, bio, avatarUrl, twitterUsername, email, githubUrl } = data;
 
   return (
     <aside className={classes.container}>
       <section className={classes['personal-info']}>
-        <Image
+        <img
           className={classes.avatar}
-          src="/images/personal-image.jpg"
+          src={avatarUrl}
           alt="My Personal Image"
-          width={100}
-          height={100}
         />
-        <h3>Yosef Beder</h3>
-        <p>
-          I&apos;m a beginner front-end developer. I&apos;ve been learning
-          front-end for 1 year. I could use React, Redux, and Typescript at the
-          time of writing this bio 😉.
-        </p>
+        <h3>{name}</h3>
+        <p>{bio}</p>
       </section>
       <nav className={classes.nav}>
         {routes.map(({ href, name }, index) => (
@@ -50,7 +83,7 @@ const Sidebar = () => {
         ))}
       </nav>
       <section className={classes['contact-info']}>
-        <Link href="https://github.com/yosefbeder" passHref>
+        <Link href={githubUrl} passHref>
           <a
             target="_blank"
             className={`${classes['icon-link']} ${classes['icon-link--github']}`}
@@ -58,7 +91,7 @@ const Sidebar = () => {
             <GithubIcon />
           </a>
         </Link>
-        <Link href="https://twitter.com/BederYosef" passHref>
+        <Link href={`https://twitter.com/${twitterUsername}`} passHref>
           <a
             target="_blank"
             className={`${classes['icon-link']} ${classes['icon-link--twitter']}`}
@@ -66,7 +99,7 @@ const Sidebar = () => {
             <TwitterIcon />
           </a>
         </Link>
-        <Link href="mailto:dryosefbeder@gmail.com" passHref>
+        <Link href={`mailto:${email}`} passHref>
           <a
             className={`${classes['icon-link']} ${classes['icon-link--mail']}`}
           >

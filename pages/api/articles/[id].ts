@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { articles, getArticles } from '.';
+import { articles } from '.';
 import { ErrorType } from '../../../types';
 import isAuthorized from '../../../utils/is-authorized';
 import fs from 'fs/promises';

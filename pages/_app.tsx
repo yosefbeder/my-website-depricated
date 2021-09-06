@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import { useEffect } from 'react';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -24,6 +25,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <Layout>
+      <Head>
+        <link
+          rel="preload"
+          href="https://api.github.com/users/yosefbeder"
+          as="fetch"
+          crossOrigin="anonymous"
+        ></link>
+      </Head>
       <Component {...pageProps} />
     </Layout>
   );
