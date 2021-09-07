@@ -58,10 +58,12 @@ const Sidebar = () => {
   return (
     <aside className={classes.container}>
       <section className={classes['personal-info']}>
-        <img
+        <Image
           className={classes.avatar}
           src={avatarUrl}
           alt="My Personal Image"
+          width={100}
+          height={100}
         />
         <h3>{name}</h3>
         <p>{bio}</p>
