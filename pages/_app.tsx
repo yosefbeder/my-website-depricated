@@ -32,6 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           as="fetch"
           crossOrigin="anonymous"
         ></link>
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
       </Head>
       <Component {...pageProps} />
     </Layout>

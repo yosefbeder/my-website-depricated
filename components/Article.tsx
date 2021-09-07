@@ -24,7 +24,7 @@ const Article: React.FC<ArticleType> = ({
       <div className={classes.content}>
         <div className={classes['tags-container']}>
           {tags.map(tag => (
-            <Link key={tag} href={`articles?tags=${tag}`}>
+            <Link key={tag} href={`/articles?tags=${tag}`}>
               {tag}
             </Link>
           ))}

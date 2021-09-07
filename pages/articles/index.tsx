@@ -4,6 +4,7 @@ import { ArticleType } from '../../types';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import ArticlesList from '../../components/ArticlesList';
 import { getArticles } from '../api/articles';
+import Head from 'next/head';
 
 interface ArticlesProps {
   articles: ArticleType[];
@@ -31,6 +32,9 @@ const Articles = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <main className={classes.container}>
+      <Head>
+        <title>Articles</title>
+      </Head>
       <ArticlesList articles={articles} />
     </main>
   );

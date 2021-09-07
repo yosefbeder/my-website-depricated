@@ -30,7 +30,6 @@ const fetcher = async (url: string) => {
     html_url: githubUrl,
     avatar_url: avatarUrl,
     bio,
-    email,
     twitter_username: twitterUsername,
   } = await fetch(url).then(req => req.json());
 
@@ -40,14 +39,14 @@ const fetcher = async (url: string) => {
     avatarUrl,
     bio,
     twitterUsername,
-    email,
+    email: 'dryosefbeder@gmail.com',
   } as UserDataType;
 };
 
 const Sidebar = () => {
   const { route } = useRouter();
 
-  const { data, error } = useSWR<UserDataType>(
+  const { data } = useSWR<UserDataType>(
     'https://api.github.com/users/yosefbeder',
     fetcher,
   );
@@ -83,7 +82,7 @@ const Sidebar = () => {
         ))}
       </nav>
       <section className={classes['contact-info']}>
-        <Link href={githubUrl} passHref>
+        <Link href={githubUrl}>
           <a
             target="_blank"
             className={`${classes['icon-link']} ${classes['icon-link--github']}`}
@@ -91,7 +90,7 @@ const Sidebar = () => {
             <GithubIcon />
           </a>
         </Link>
-        <Link href={`https://twitter.com/${twitterUsername}`} passHref>
+        <Link href={`https://twitter.com/${twitterUsername}`}>
           <a
             target="_blank"
             className={`${classes['icon-link']} ${classes['icon-link--twitter']}`}
@@ -99,7 +98,7 @@ const Sidebar = () => {
             <TwitterIcon />
           </a>
         </Link>
-        <Link href={`mailto:${email}`} passHref>
+        <Link href={`mailto:${email}`}>
           <a
             className={`${classes['icon-link']} ${classes['icon-link--mail']}`}
           >

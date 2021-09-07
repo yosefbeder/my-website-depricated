@@ -8,6 +8,7 @@ import { ArticleType } from '../../types';
 import { getArticle } from '../api/articles/[id]';
 import TypographyMain from '../../components/TypographyMain';
 import { getArticles } from '../api/articles';
+import Head from 'next/head';
 
 export interface ArticlePageProps extends ArticleType {
   markdown: string;
@@ -54,6 +55,9 @@ const Article = ({
 
   return (
     <TypographyMain>
+      <Head>
+        <title>Articles &gt; {title}</title>
+      </Head>
       <header className={classes.header}>
         <Image
           src={`/images/articles/${id}.jpg`}

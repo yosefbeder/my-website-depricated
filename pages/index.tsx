@@ -4,6 +4,7 @@ import path from 'path';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Markdown from '../components/Markdown';
 import TypographyMain from '../components/TypographyMain';
+import Head from 'next/head';
 
 interface HomeProps {
   markdown: string;
@@ -25,6 +26,9 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
 const Home = ({ markdown }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <TypographyMain>
+      <Head>
+        <title>Home</title>
+      </Head>
       <Markdown>{markdown}</Markdown>
     </TypographyMain>
   );

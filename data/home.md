@@ -33,7 +33,6 @@ It's made with React and commerce.js.
 I learened tons of things programing this one like
 
 - Using commerce.js SDK.
-  - Which is pretty cool
 - Adding payment with Stripe.
 - Dealing with routing and a big number of pages.
 - Using architectures in larger projects.
