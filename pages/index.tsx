@@ -12,7 +12,7 @@ interface HomeProps {
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const markdown = await fs.readFile(
-    path.join(process.cwd(), '/data/home.md'),
+    path.join(process.cwd(), 'README.md'),
     'utf-8',
   );
 

@@ -6,6 +6,7 @@ import { ArticleType } from '../types';
 
 const Article: React.FC<ArticleType> = ({
   id,
+  imgSrc,
   title,
   tags,
   description,
@@ -16,7 +17,7 @@ const Article: React.FC<ArticleType> = ({
       <Image
         className={classes.img}
         objectFit="cover"
-        src={`/images/articles/${id}.jpg`}
+        src={imgSrc}
         alt={title}
         width={384}
         height={256}

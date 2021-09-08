@@ -1,53 +1,30 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs';
-import fsPromises from 'fs/promises';
-import path from 'path';
-import { ArticleType, ErrorType } from '../../../types';
 import validate from 'validate.js';
-import fetch from 'node-fetch';
 import isAuthorized from '../../../utils/is-authorized';
+import { getArticles, postArticle } from '../../../utils/mongodb';
 
 const generateId = (title: string) => title.toLowerCase().replace(/\s/g, '-');
 
-const downloadImage = async (url: string, des: string) => {
-  const response = await fetch(url);
-  const buffer = await response.buffer();
+const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    if (req.query.tags) {
+      let tags = (req.query.tags as string).split(',');
 
-  await fsPromises.writeFile(des, buffer);
-};
-
-export const articles: ArticleType[] = JSON.parse(
-  fs.readFileSync(path.join(process.cwd(), '/data/articles.json'), 'utf-8'),
-);
-
-export const getArticles = (tags?: string[]) => {
-  let result = articles;
-
-  if (tags) {
-    tags.forEach(tag => {
-      result = result.filter(({ tags }) => tags.includes(tag));
-    });
-  }
-
-  return result;
-};
-
-const getHandler = (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.query.tags) {
-    let tags = (req.query.tags as string).split(',');
-
-    res.status(200).json({ success: true, data: getArticles(tags) });
-  } else {
-    res.status(200).json({ success: true, data: getArticles() });
+      res.status(200).json({ success: true, data: await getArticles(tags) });
+    } else {
+      res.status(200).json({ success: true, data: await getArticles() });
+    }
+  } catch (err) {
+    res.status(500).json({ success: false, error: (err as Error).message });
   }
 };
 
-interface ReqSchema {
+export interface ReqSchema {
   imgSrc: string;
   title: string;
   description: string;
   tags: string[];
-  content: string;
+  markdown: string;
 }
 
 const reqSchema = {
@@ -55,75 +32,42 @@ const reqSchema = {
   title: { type: 'string', presence: true },
   description: { type: 'string', presence: true },
   tags: { type: 'array', presence: true },
-  content: { type: 'string', presence: true },
+  markdown: { type: 'string', presence: true },
 };
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const adminId = req.headers['admin-id'] as string | undefined;
+  try {
+    await isAuthorized(req.headers['admin-id'] as string | undefined);
+  } catch (err) {
+    res.status(401).json({ success: false, error: (err as Error).message });
+  }
+
+  if (validate(req.body, reqSchema)) {
+    res.status(400).json({
+      success: false,
+      error: 'Please check the format of the request',
+    });
+    return;
+  }
+
+  const { imgSrc, title, description, tags, markdown } = req.body as ReqSchema;
+  const id = generateId(title);
+  const date = new Date().toISOString();
 
   try {
-    isAuthorized(adminId);
+    const article = { id, imgSrc, title, date, description, tags, markdown };
 
-    if (validate(req.body, reqSchema))
-      throw {
-        status: 400,
-        message: 'Please check the format of the request body',
-      };
+    await postArticle(article);
 
-    const { imgSrc, title, description, tags, content } = req.body as ReqSchema;
-
-    const id = generateId(title);
-
-    if (articles.find(article => article.id === id))
-      throw {
-        status: 400,
-        message: "There's already an article with this title",
-      };
-
-    const date = new Date().toISOString();
-
-    try {
-      const newArticle = {
-        id,
-        date,
-        title,
-        description,
-        tags,
-      };
-
-      articles.push(newArticle);
-
-      await downloadImage(
-        imgSrc,
-        path.join(process.cwd(), `/public/images/articles/${id}.jpg`),
-      );
-
-      await fsPromises.writeFile(
-        path.join(process.cwd(), `/data/articles/${id}.md`),
-        content,
-      );
-
-      await fsPromises.writeFile(
-        path.join(process.cwd(), 'data/articles.json'),
-        JSON.stringify(articles),
-      );
-
-      res.status(201).json({ success: true, data: null });
-    } catch (err) {
-      articles.pop();
-
-      throw { status: 500, message: "Couldn't write to the database" };
-    }
+    res.status(200).json({ success: true, data: article });
   } catch (err) {
-    res
-      .status((err as ErrorType).status)
-      .json({ success: false, error: (err as ErrorType).message });
+    res.status(400).json({ success: false, error: (err as Error).message });
   }
 };
 
-const hanlder = (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === 'GET') getHandler(req, res);
-  else if (req.method === 'POST') postHandler(req, res);
+const hanlder = async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method === 'GET') await getHandler(req, res);
+  else if (req.method === 'POST') await postHandler(req, res);
   else
     res.status(405).json({
       success: false,

@@ -3,8 +3,8 @@ import classes from '../../styles/articles-page.module.scss';
 import { ArticleType } from '../../types';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import ArticlesList from '../../components/ArticlesList';
-import { getArticles } from '../api/articles';
 import Head from 'next/head';
+import { getArticles } from '../../utils/mongodb';
 
 interface ArticlesProps {
   articles: ArticleType[];
@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps<ArticlesProps> =
     if (context.query.tags) {
       const tags = (context.query.tags as string).split(',');
 
-      const articles = getArticles(tags);
+      const articles = await getArticles(tags);
 
       if (articles.length === 0) return { notFound: true };
 
@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps<ArticlesProps> =
         props: { articles },
       };
     } else {
-      return { props: { articles: getArticles() } };
+      return { props: { articles: await getArticles() } };
     }
   };
 

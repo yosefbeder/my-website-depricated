@@ -4,27 +4,22 @@ import React from 'react';
 import Markdown from '../../components/Markdown';
 import Image from 'next/image';
 import Link from '../../components/Link';
-import { ArticleType } from '../../types';
-import { getArticle } from '../api/articles/[id]';
+import { ArticleType, FullArticleType } from '../../types';
 import TypographyMain from '../../components/TypographyMain';
-import { getArticles } from '../api/articles';
 import Head from 'next/head';
-
-export interface ArticlePageProps extends ArticleType {
-  markdown: string;
-}
+import { getArticle, getArticles } from '../../utils/mongodb';
 
 const formatTime = (m: number, s: number) =>
   `${m.toString().padStart(2, '0')}:${s.toString().padEnd(2, '0')}`;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: getArticles().map(({ id }) => ({ params: { id } })),
+    paths: (await getArticles()).map(({ id }) => ({ params: { id } })),
     fallback: 'blocking',
   };
 };
 
-export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({
+export const getStaticProps: GetStaticProps<FullArticleType> = async ({
   params,
 }) => {
   try {
@@ -43,6 +38,7 @@ export const getStaticProps: GetStaticProps<ArticlePageProps> = async ({
 
 const Article = ({
   id,
+  imgSrc,
   title,
   description,
   date,
@@ -60,7 +56,7 @@ const Article = ({
       </Head>
       <header className={classes.header}>
         <Image
-          src={`/images/articles/${id}.jpg`}
+          src={imgSrc}
           alt={title}
           width={704}
           height={396}

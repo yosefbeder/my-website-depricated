@@ -2,6 +2,11 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['avatars.githubusercontent.com'],
+    domains: [
+      'avatars.githubusercontent.com',
+      'images.unsplash.com',
+      'images-na.ssl-images-amazon.com',
+      'cdn.dribbble.com',
+    ],
   },
 };
