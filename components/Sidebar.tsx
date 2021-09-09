@@ -65,7 +65,7 @@ const Sidebar = () => {
           width={100}
           height={100}
         />
-        <h3>{name}</h3>
+        <h3 className={classes.name}>{name}</h3>
         <p>{bio}</p>
       </section>
       <nav className={classes.nav}>
