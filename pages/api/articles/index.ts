@@ -1,19 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import validate from 'validate.js';
 import isAuthorized from '../../../utils/is-authorized';
-import { getArticles, postArticle } from '../../../utils/mongodb';
+import { getAllArticles, postArticle } from '../../../utils/mongodb';
 
 const generateId = (title: string) => title.toLowerCase().replace(/\s/g, '-');
 
 const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    if (req.query.tags) {
-      let tags = (req.query.tags as string).split(',');
-
-      res.status(200).json({ success: true, data: await getArticles(tags) });
-    } else {
-      res.status(200).json({ success: true, data: await getArticles() });
-    }
+    res.status(200).json({ success: true, data: await getAllArticles() });
   } catch (err) {
     res.status(500).json({ success: false, error: (err as Error).message });
   }

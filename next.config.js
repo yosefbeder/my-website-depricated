@@ -6,7 +6,7 @@ module.exports = {
       'avatars.githubusercontent.com',
       'images.unsplash.com',
       'images-na.ssl-images-amazon.com',
-      'cdn.dribbble.com',
+      'i.postimg.cc',
     ],
   },
 };

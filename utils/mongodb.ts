@@ -20,14 +20,12 @@ const getDb = async () => {
   }
 };
 
-export const getArticles = async (tags?: string[]): Promise<ArticleType[]> => {
+export const getAllArticles = async (): Promise<ArticleType[]> => {
   try {
     const db = await getDb();
     const articles = db.collection('articles');
 
-    const query = tags ? { tags } : {};
-
-    const docs = await articles.find(query).toArray();
+    const docs = await articles.find({}).toArray();
 
     return docs.map(({ markdown, _id, ...article }) => article as ArticleType);
   } catch (err) {

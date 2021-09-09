@@ -7,14 +7,14 @@ import Link from '../../components/Link';
 import { FullArticleType } from '../../types';
 import TypographyMain from '../../components/TypographyMain';
 import Head from 'next/head';
-import { getArticle, getArticles } from '../../utils/mongodb';
+import { getArticle, getAllArticles } from '../../utils/mongodb';
 
 const formatTime = (m: number, s: number) =>
   `${m.toString().padStart(2, '0')}:${s.toString().padEnd(2, '0')}`;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: (await getArticles()).map(({ id }) => ({ params: { id } })),
+    paths: (await getAllArticles()).map(({ id }) => ({ params: { id } })),
     fallback: 'blocking',
   };
 };
