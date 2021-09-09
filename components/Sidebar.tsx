@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import classes from '../styles/Sidebar.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,7 +8,7 @@ import {
   FaTwitter as TwitterIcon,
   FaEnvelope as MailIcon,
 } from 'react-icons/fa';
-import useSWR from 'swr';
+import useSWR from 'swr/immutable';
 
 const routes = [
   { href: '/', name: 'Home' },

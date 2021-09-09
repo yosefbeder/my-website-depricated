@@ -4,7 +4,7 @@ import React from 'react';
 import Markdown from '../../components/Markdown';
 import Image from 'next/image';
 import Link from '../../components/Link';
-import { ArticleType, FullArticleType } from '../../types';
+import { FullArticleType } from '../../types';
 import TypographyMain from '../../components/TypographyMain';
 import Head from 'next/head';
 import { getArticle, getArticles } from '../../utils/mongodb';
