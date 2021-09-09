@@ -4,10 +4,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: $space-2xl;
 
   padding: $space-lg;
   border-bottom: 1px solid $color-gray-200;
+
+  & > *:not(:last-child) {
+    margin-bottom: $space-2xl;
+  }
 }
 
 .avatar {
@@ -18,17 +21,20 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: $space-lg;
 
-  & > * {
+  & > *:not(:last-child) {
     margin: 0;
+    margin-bottom: $space-lg;
   }
 }
 
 .nav,
 .contact-info {
   display: flex;
-  gap: $space-xl;
+
+  & > *:not(:last-child) {
+    margin-right: $space-lg;
+  }
 }
 
 @media (min-width: $screen-sm) {
@@ -41,6 +47,11 @@
 
   .nav {
     flex-direction: column;
+
+    & > *:not(:last-child) {
+      margin: 0;
+      margin-bottom: $space-lg;
+    }
   }
 }
 
