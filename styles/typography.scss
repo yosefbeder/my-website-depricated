@@ -1,5 +1,10 @@
 @import './variables.scss';
 
+::selection {
+  color: $color-blue-900;
+  background: $color-blue-100;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -20,38 +25,43 @@ h4 {
 
 h1 {
   font-size: $text-2xl;
-  margin-bottom: $space-2xl;
+  margin: $space-2xl 0;
 }
 
 h2 {
   font-size: $text-xl;
-  margin-bottom: $space-xl;
+  margin: $space-xl 0;
 }
 
 h3 {
   font-size: $text-lg;
-  margin-bottom: $space-lg;
+  margin: $space-lg 0;
 }
 
 h4 {
   font-size: $text-md;
-  margin-bottom: $space-md;
+  margin: $space-md 0;
   color: $color-gray-800;
 }
 
-p,
-li,
+img,
+blockquote,
+pre > code,
+ol,
 ul {
+  margin: $space-lg 0;
+}
+
+p {
   font-size: $text-base;
-  font-weight: 400;
   color: $color-gray-700;
   line-height: 1.5;
   max-width: 60ch;
-  margin-bottom: $space-md;
+  margin: $space-md 0;
 
   & > code {
     background-color: $color-blue-200;
-    font-family: monospace;
+    font-family: $font-tertiary;
 
     &::before {
       content: '`';
@@ -68,22 +78,34 @@ i {
   font-style: italic;
 }
 
-ul {
-  list-style-type: unset;
-
-  li {
-    margin-left: $space-xl;
-
-    ul {
-      margin-top: $space-md;
-      list-style-type: circle;
-    }
-  }
-}
-
 small {
   font-size: $text-sm;
   color: $color-gray-500;
+}
+
+ul,
+ol {
+  margin-left: calc(#{$space-xl} + #{$space-lg});
+  color: $color-gray-700;
+}
+
+li > p {
+  margin-left: $space-sm;
+}
+
+@media (min-width: $screen-md) {
+  ul,
+  ol {
+    margin-left: calc(#{$space-xl} + #{$space-xl});
+  }
+}
+
+ul {
+  list-style-type: unset;
+}
+
+ol {
+  list-style-type: numbers;
 }
 
 a {
@@ -93,6 +115,7 @@ a {
 img {
   width: 100%;
   border-radius: $rounded-md;
+  margin: $space-lg 0;
 }
 
 blockquote {
@@ -101,34 +124,33 @@ blockquote {
   display: flex;
 
   background-color: $color-blue-100;
-  margin: $space-lg 0;
   padding: $space-lg $space-3xl;
   border-radius: $rounded-md;
-  quotes: auto;
+  quotes: '“' '”';
 
   color: $color-gray-800;
 
   overflow: hidden;
-}
 
-blockquote > p {
-  margin: 0;
+  & > p {
+    margin: 0;
+  }
 }
 
 blockquote::before {
   color: $color-blue-200;
   position: absolute;
   top: -0.75rem;
-  left: 0.25rem;
+  left: -0.75rem;
+  font-family: $font-tertiary;
   content: open-quote;
-  font-family: sans-serif;
   font-size: $text-4xl;
 }
 
 pre > code {
   // override the default lib style
   padding: $space-lg !important;
-  max-width: 60ch;
   border-radius: $rounded-md;
-  line-height: 1.5;
+  font-family: $font-tertiary;
+  font-size: $text-sm;
 }
