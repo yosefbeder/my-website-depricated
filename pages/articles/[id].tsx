@@ -10,7 +10,7 @@ import Head from 'next/head';
 import { getArticle, getAllArticles } from '../../utils/mongodb';
 
 const formatTime = (m: number, s: number) =>
-  `${m.toString().padStart(2, '0')}:${s.toString().padEnd(2, '0')}`;
+  `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
