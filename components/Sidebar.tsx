@@ -8,7 +8,7 @@ import {
   FaTwitter as TwitterIcon,
   FaEnvelope as MailIcon,
 } from 'react-icons/fa';
-import useSWR from 'swr/immutable';
+import useSWR from 'swr';
 
 const routes = [
   { href: '/', name: 'Home' },
@@ -49,6 +49,11 @@ const Sidebar = () => {
   const { data } = useSWR<UserDataType>(
     'https://api.github.com/users/yosefbeder',
     fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
   );
 
   if (!data) return <div></div>;
