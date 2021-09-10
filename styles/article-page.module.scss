@@ -5,17 +5,25 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: $space-lg;
   margin-bottom: $space-2xl;
 
   & > h1 {
+    // to remove the default tag style & add some spacing to the image
     margin: 0;
+    margin-top: $space-lg;
+  }
+
+  & > *:not(:last-child) {
+    margin-bottom: $space-lg;
   }
 }
 
 .tags-container {
   display: flex;
-  gap: $space-lg;
+
+  & > *:not(:last-child) {
+    margin-right: $space-lg;
+  }
 }
 
 @media (max-width) {

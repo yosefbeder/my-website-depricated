@@ -8,7 +8,7 @@ $lg: 24rem;
   display: grid;
   justify-content: center;
   grid-template-rows: masonry;
-  gap: $space-xl;
+  grid-gap: $space-xl;
   width: 100%;
   padding: $space-xl;
 }
@@ -70,8 +70,11 @@ $lg: 24rem;
 
 .tags-container {
   display: flex;
-  gap: $space-md;
   margin-bottom: $space-lg;
+
+  & > *:not(:last-child) {
+    margin-right: $space-md;
+  }
 }
 
 .footer {
