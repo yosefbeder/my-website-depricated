@@ -48,6 +48,19 @@ ul {
   line-height: 1.5;
   max-width: 60ch;
   margin-bottom: $space-md;
+
+  & > code {
+    background-color: $color-blue-200;
+    font-family: monospace;
+
+    &::before {
+      content: '`';
+    }
+
+    &::after {
+      content: '`';
+    }
+  }
 }
 
 i {
@@ -113,6 +126,9 @@ blockquote::before {
 }
 
 pre > code {
+  // override the default lib style
   padding: $space-lg !important;
+  max-width: 60ch;
   border-radius: $rounded-md;
+  line-height: 1.5;
 }
