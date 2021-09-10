@@ -12,7 +12,7 @@ interface ArticlesProps {
 }
 
 export const getStaticProps: GetStaticProps<ArticlesProps> = async () => {
-  return { props: { articles: await getAllArticles() } };
+  return { props: { articles: await getAllArticles() }, revalidate: 60 };
 };
 
 const Articles = ({
