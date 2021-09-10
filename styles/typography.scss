@@ -1,8 +1,13 @@
 @import './variables.scss';
 
 ::selection {
-  color: $color-blue-900;
-  background: $color-blue-100;
+  color: $color-white;
+  background: $color-blue-300;
+}
+
+::-moz-selection {
+  color: $color-white;
+  background: $color-blue-300;
 }
 
 * {
