@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import classes from '../../styles/article-page.module.scss';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Markdown from '../../components/Markdown';
 import Image from 'next/image';
 import Link from '../../components/Link';
@@ -18,6 +18,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: 'blocking',
   };
 };
+
+import hljs from 'highlight.js/lib/core';
+import ts from 'highlight.js/lib/languages/typescript';
+import js from 'highlight.js/lib/languages/javascript';
+import xml from 'highlight.js/lib/languages/xml';
+
+hljs.registerLanguage('javascript', js);
+hljs.registerLanguage('typescript', ts);
+hljs.registerLanguage('xml', xml);
+
+import 'highlight.js/styles/atom-one-dark.css';
 
 export const getStaticProps: GetStaticProps<FullArticleType> = async ({
   params,
@@ -49,10 +60,20 @@ const Article = ({
   const m = Math.trunc(length / 200);
   const s = Math.round((length % 200) * 100) / 100;
 
+  useEffect(() => {
+    document
+      .querySelector<HTMLDivElement>('article')!
+      .querySelectorAll<HTMLDivElement>('pre > code')
+      .forEach(code => {
+        hljs.highlightBlock(code);
+      });
+  }, []);
+
   return (
     <TypographyMain>
       <Head>
         <title>Articles &gt; {title}</title>
+        <meta name="description" content={description} />
       </Head>
       <header className={classes.header}>
         <Image

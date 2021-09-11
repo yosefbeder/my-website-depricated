@@ -2,8 +2,6 @@ import '../styles/globals.scss';
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
 import { useEffect } from 'react';
-import hljs from 'highlight.js';
-import 'highlight.js/styles/atom-one-dark.css';
 import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -16,23 +14,24 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (viewPortWidth >= 640) {
       element.scrollTop = 0;
     }
-
-    // Highlight code blocks
-    element.querySelectorAll<HTMLDivElement>('pre > code').forEach(code => {
-      hljs.highlightBlock(code);
-    });
   }, [Component]);
 
   return (
     <Layout>
       <Head>
+        <meta charSet="UTF-8" />
+        <meta name="author" content="Yosef Beder" />
+        <meta
+          name="description"
+          content="I'm Yosef beder and this is my website which contains some information about me, the projects that I made and finally a blog in which I share the stuff that I learn."
+        />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link
           rel="preload"
           href="https://api.github.com/users/yosefbeder"
           as="fetch"
           crossOrigin="anonymous"
         ></link>
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
       </Head>
       <Component {...pageProps} />
     </Layout>
