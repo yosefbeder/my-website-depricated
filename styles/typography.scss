@@ -159,3 +159,7 @@ pre > code {
   font-family: $font-tertiary;
   font-size: $text-sm;
 }
+
+article > *:first-child {
+  margin-top: 0;
+}
