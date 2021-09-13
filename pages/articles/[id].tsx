@@ -48,7 +48,6 @@ export const getStaticProps: GetStaticProps<FullArticleType> = async ({
 };
 
 const Article = ({
-  id,
   imgSrc,
   title,
   description,
@@ -56,9 +55,7 @@ const Article = ({
   tags,
   markdown,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const length = markdown.split(' ').length;
-  const m = Math.trunc(length / 200);
-  const s = Math.round((length % 200) * 100) / 100;
+  const timeToRead = Math.round(markdown.split(' ').length / 200);
 
   useEffect(() => {
     document
@@ -101,7 +98,7 @@ const Article = ({
             month: 'long',
             day: 'numeric',
           }).format(new Date(date))}{' '}
-          - {formatTime(m, s)} minutes
+          - {timeToRead} minute{timeToRead !== 1 && 's'}
         </small>
       </header>
       <Markdown>{markdown}</Markdown>
