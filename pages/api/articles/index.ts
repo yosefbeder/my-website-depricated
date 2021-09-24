@@ -3,7 +3,11 @@ import validate from 'validate.js';
 import isAuthorized from '../../../utils/is-authorized';
 import { getAllArticles, postArticle } from '../../../utils/mongodb';
 
-const generateId = (title: string) => title.toLowerCase().replace(/\s/g, '-');
+const generateId = (title: string) =>
+  title
+    .toLowerCase()
+    .replace(/[\/.?=&:#]+/g, '')
+    .replace(/\s/g, '-');
 
 const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {

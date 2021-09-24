@@ -16,7 +16,7 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const deleteHanlder = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    await isAuthorized(req.headers['admin-id'] as string | undefined);
+    isAuthorized(req.headers['admin-id'] as string | undefined);
   } catch (err) {
     res.status(401).json({ success: false, error: (err as Error).message });
   }

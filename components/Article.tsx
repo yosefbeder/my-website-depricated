@@ -55,7 +55,7 @@ const Article: React.FC<ArticleType> = ({
           </motion.div>
         )}
 
-        <motion.h3 layout>{title}?</motion.h3>
+        <motion.h3 layout>{title}</motion.h3>
 
         {mouseIn && (
           <motion.p
