@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
+import useFlashFix from '../hooks/useFlashFix';
 
 export const routeTransitions = {
   hidden: { opacity: 0, y: 60 },
@@ -18,31 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [viewPortWidth, setViewPortWidth] = useState(0);
 
   // css modules bug work-around
-
-  useEffect(() => {
-    Array.from(
-      document.querySelectorAll('head > link[rel="stylesheet"][data-n-p]'),
-    ).forEach(node => {
-      node.removeAttribute('data-n-p');
-    });
-    const mutationHandler = (mutations: any) => {
-      mutations.forEach(({ target }: { target: any }) => {
-        if (target.nodeName === 'STYLE') {
-          if (target.getAttribute('media') === 'x') {
-            target.removeAttribute('media');
-          }
-        }
-      });
-    };
-    const observer = new MutationObserver(mutationHandler);
-    observer.observe(document.head, {
-      subtree: true,
-      attributeFilter: ['media'],
-    });
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+  useFlashFix();
 
   useEffect(() => {
     // Scroll whenever the page is changed
