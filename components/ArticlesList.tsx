@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { ArticleType } from '../types';
 import Article from './Article';
 import classes from '../styles/Article.module.scss';
+import { AnimateSharedLayout, motion } from 'framer-motion';
 
 interface ArticlesListProps {
   articles: ArticleType[];
@@ -56,11 +57,13 @@ const ArticlesList: React.FC<ArticlesListProps> = ({ articles }) => {
   }, []);
 
   return (
-    <div className={classes.list} ref={containerRef}>
-      {articles.map(article => (
-        <Article key={article.id} {...article} />
-      ))}
-    </div>
+    <AnimateSharedLayout>
+      <motion.div className={classes.list} ref={containerRef}>
+        {articles.map((article, index) => (
+          <Article key={index} {...article} />
+        ))}
+      </motion.div>
+    </AnimateSharedLayout>
   );
 };
 

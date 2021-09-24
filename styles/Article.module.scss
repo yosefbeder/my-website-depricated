@@ -60,7 +60,6 @@ $lg: 24rem;
   }
 
   & > p {
-    margin-bottom: $space-lg;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -81,4 +80,6 @@ $lg: 24rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: $space-lg;
+  background-color: $color-gray-50;
 }
