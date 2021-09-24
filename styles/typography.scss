@@ -34,6 +34,7 @@ h4 {
   margin: 0;
   color: $color-gray-900;
   font-weight: 900;
+  line-height: 1.25;
 }
 
 h1 {
@@ -65,7 +66,8 @@ ul {
   margin: $space-lg 0;
 }
 
-p {
+p,
+li {
   font-size: $text-base;
   color: $color-gray-700;
   line-height: 1.5;
@@ -102,8 +104,30 @@ ol {
   color: $color-gray-700;
 }
 
-li > p {
-  margin-left: $space-sm;
+ul {
+  list-style-type: initial;
+
+  & > ol {
+    list-style-type: numbers;
+  }
+}
+
+ol {
+  list-style-type: numbers;
+
+  & > ul {
+    list-style-type: initial;
+  }
+}
+
+li {
+  &::marker {
+    margin-right: $space-sm;
+  }
+
+  & > ul {
+    list-style-type: circle;
+  }
 }
 
 @media (min-width: $screen-md) {
@@ -111,14 +135,6 @@ li > p {
   ol {
     margin-left: calc(#{$space-xl} + #{$space-xl});
   }
-}
-
-ul {
-  list-style-type: unset;
-}
-
-ol {
-  list-style-type: numbers;
 }
 
 a {
