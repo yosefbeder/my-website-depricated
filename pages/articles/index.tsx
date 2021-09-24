@@ -6,6 +6,8 @@ import ArticlesList from '../../components/ArticlesList';
 import Head from 'next/head';
 import { getAllArticles } from '../../utils/mongodb';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
+import { routeTransitions } from '../_app';
 
 interface ArticlesProps {
   articles: ArticleType[];
@@ -48,12 +50,18 @@ const Articles = ({
     );
 
   return (
-    <main className={classes.container}>
+    <motion.main
+      variants={routeTransitions}
+      initial="hidden"
+      animate="enter"
+      exit="exit"
+      className={classes.container}
+    >
       <Head>
         <title>Articles</title>
       </Head>
       <ArticlesList articles={filteredArticles} />
-    </main>
+    </motion.main>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { HTMLAttributeAnchorTarget } from 'react';
+import React from 'react';
 
 import NextLink from 'next/link';
 
@@ -13,7 +13,7 @@ const Link: React.FC<LinkProps> = ({
   children,
   ...elProps
 }) => (
-  <NextLink href={href}>
+  <NextLink href={href} scroll={false}>
     <a
       className={variant === 'inline' ? 'link' : 'btn btn--primary'}
       {...elProps}

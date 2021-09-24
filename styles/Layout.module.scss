@@ -4,13 +4,6 @@
   max-width: $screen-lg;
   margin: 0 auto;
   height: 100vh;
-
-  overflow-y: scroll;
-  scrollbar-width: none;
-}
-
-.container::-webkit-scrollbar {
-  width: 0;
 }
 
 .typography-main {

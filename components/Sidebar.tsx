@@ -75,7 +75,7 @@ const Sidebar = () => {
       </section>
       <nav className={classes.nav}>
         {routes.map(({ href, name }, index) => (
-          <Link key={index} href={href}>
+          <Link key={index} href={href} scroll={false}>
             <a
               className={`${classes['nav-link']} ${
                 href.length === 1
