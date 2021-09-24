@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from '../components/Link';
 import Image from 'next/image';
 import classes from '../styles/Article.module.scss';
@@ -19,6 +19,17 @@ const Article: React.FC<ArticleType> = ({
   date,
 }) => {
   const [mouseIn, setMouseIn] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent,
+      )
+    ) {
+      setIsMobile(true);
+    }
+  }, []);
 
   return (
     <motion.div
@@ -38,7 +49,7 @@ const Article: React.FC<ArticleType> = ({
         />
       </motion.div>
       <motion.div layout className={classes.content}>
-        {mouseIn && (
+        {(mouseIn || isMobile) && (
           <motion.div
             layout
             variants={variants}
@@ -57,7 +68,7 @@ const Article: React.FC<ArticleType> = ({
 
         <motion.h3 layout>{title}</motion.h3>
 
-        {mouseIn && (
+        {(mouseIn || isMobile) && (
           <motion.p
             layout
             variants={variants}
