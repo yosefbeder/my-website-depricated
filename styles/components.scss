@@ -11,7 +11,7 @@
     color: $color-blue-50;
     background-color: $color-blue-400;
     box-shadow: $shadow-sm $color-blue-100;
-    transition: background-color 100ms, box-shadow 100ms;
+    transition: background-color 300ms, box-shadow 300ms;
 
     &:hover {
       background-color: $color-blue-500;

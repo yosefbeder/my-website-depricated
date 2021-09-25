@@ -75,6 +75,7 @@ const Article: React.FC<ArticleType> = ({
             initial="hidden"
             animate="visible"
             exit="hidden"
+            className={`${isMobile && classes.clip}`}
           >
             {description}
           </motion.p>
