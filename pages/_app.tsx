@@ -9,8 +9,11 @@ import useFlashFix from '../hooks/useFlashFix';
 
 export const routeTransitions = {
   hidden: { opacity: 0, y: 60 },
-  enter: { opacity: 1, y: 0 },
-  exit: { opacity: 0, x: 60, transition: { duration: 0.25 } },
+  enter: {
+    opacity: 1,
+    y: 0,
+  },
+  exit: { opacity: 0, x: 120, transition: { duration: 0.35, ease: 'easeIn' } },
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -22,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   useFlashFix();
 
   useEffect(() => {
-    // Scroll whenever the page is changed
+    // Scroll whenever the page is
     setViewPortWidth(window.innerWidth);
     document.addEventListener('resize', () => {
       setViewPortWidth(window.innerWidth);
