@@ -25,19 +25,19 @@ const Articles = ({
 
   useEffect(() => {
     // filtering
-    if (query.tags) {
-      const tags = (query.tags as string).split(',');
+    const tags = query.tags;
 
-      let result = articles;
+    let result = articles;
 
-      tags.forEach(tag => {
+    if (tags) {
+      const tagsArr = (tags as string).split(',');
+
+      tagsArr.forEach(tag => {
         result = result.filter(article => article.tags.includes(tag));
       });
-
-      setFilteredArticles(result);
-    } else {
-      setFilteredArticles(articles);
     }
+
+    setFilteredArticles(result);
   }, [query]);
 
   if (!isReady)

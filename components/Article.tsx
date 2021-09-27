@@ -5,7 +5,7 @@ import classes from '../styles/Article.module.scss';
 import { ArticleType } from '../types';
 import { motion } from 'framer-motion';
 
-const typographyVariants = {
+const variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
 };
@@ -34,6 +34,10 @@ const Article: React.FC<ArticleType> = ({
   return (
     <motion.div
       layout
+      variants={variants}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
       className={classes.container}
       onMouseEnter={() => setMouseIn(true)}
       onMouseLeave={() => setMouseIn(false)}
@@ -52,10 +56,7 @@ const Article: React.FC<ArticleType> = ({
         {(mouseIn || isMobile) && (
           <motion.div
             layout
-            variants={typographyVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
+            variants={variants}
             className={classes['tags-container']}
           >
             {tags.map(tag => (
@@ -69,13 +70,7 @@ const Article: React.FC<ArticleType> = ({
         <motion.h3 layout>{title}</motion.h3>
 
         {(mouseIn || isMobile) && (
-          <motion.p
-            layout
-            variants={typographyVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-          >
+          <motion.p layout variants={variants}>
             {description}
           </motion.p>
         )}
