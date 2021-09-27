@@ -73,18 +73,23 @@ li {
   line-height: 1.5;
   max-width: 60ch;
   margin: $space-md 0;
+}
 
-  & code {
-    background-color: $color-blue-200;
-    font-family: $font-tertiary;
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+p code,
+li code {
+  background-color: $color-blue-200;
+  font-family: $font-tertiary;
 
-    &::before {
-      content: '`';
-    }
+  &::before {
+    content: '`';
+  }
 
-    &::after {
-      content: '`';
-    }
+  &::after {
+    content: '`';
   }
 }
 
