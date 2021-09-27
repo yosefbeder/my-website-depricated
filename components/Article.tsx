@@ -5,7 +5,7 @@ import classes from '../styles/Article.module.scss';
 import { ArticleType } from '../types';
 import { motion } from 'framer-motion';
 
-const variants = {
+const typographyVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
 };
@@ -52,7 +52,7 @@ const Article: React.FC<ArticleType> = ({
         {(mouseIn || isMobile) && (
           <motion.div
             layout
-            variants={variants}
+            variants={typographyVariants}
             initial="hidden"
             animate="visible"
             exit="hidden"
@@ -71,11 +71,10 @@ const Article: React.FC<ArticleType> = ({
         {(mouseIn || isMobile) && (
           <motion.p
             layout
-            variants={variants}
+            variants={typographyVariants}
             initial="hidden"
             animate="visible"
             exit="hidden"
-            className={`${isMobile && classes.clip}`}
           >
             {description}
           </motion.p>
