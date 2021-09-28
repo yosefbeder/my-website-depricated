@@ -4,25 +4,43 @@ $sm: 20rem;
 $md: 22rem;
 $lg: 24rem;
 
-.list {
-  display: grid;
-  justify-content: center;
-  grid-template-rows: masonry;
-  grid-gap: $space-xl;
-  width: 100%;
-  padding: $space-xl;
+.column {
+  display: flex;
+  flex-direction: column;
+  width: $md;
+  padding: $space-xl 0;
+  margin: 0 auto;
+
+  & > *:not(:last-child) {
+    margin-bottom: $space-xl;
+  }
+}
+
+@media (min-width: $screen-md) {
+  .column {
+    width: $lg;
+  }
 }
 
 @media (min-width: $screen-lg) {
-  .list {
-    grid-template-columns: repeat(2, $sm);
+  .column {
+    margin: 0;
+    width: $sm;
+  }
+}
+
+.columns-container {
+  display: flex;
+  width: max-content;
+  margin: 0 auto;
+
+  & > *:not(:last-child) {
+    margin-right: $space-xl;
   }
 }
 
 .container {
   height: max-content;
-  // in regular mobile phones
-  width: $md;
   border-radius: $rounded-md;
   box-shadow: $shadow-lg $color-gray-200;
   background-color: $color-white;
@@ -32,20 +50,6 @@ $lg: 24rem;
 
 .img {
   border-radius: 0;
-}
-
-@media (min-width: $screen-md) {
-  .container {
-    // in medium screens (there's just one column)
-    width: $lg;
-  }
-}
-
-@media (min-width: $screen-lg) {
-  // in large screens 2 columns
-  .container {
-    width: $sm;
-  }
 }
 
 .content {

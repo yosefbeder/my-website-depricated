@@ -1,70 +1,49 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { ArticleType } from '../types';
 import Article from './Article';
 import classes from '../styles/Article.module.scss';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
+import useViewPortWidth from '../hooks/useViewPortWidth';
 
 interface ArticlesListProps {
   articles: ArticleType[];
 }
 
 const ArticlesList: React.FC<ArticlesListProps> = ({ articles }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const gridEl = containerRef.current!;
-
-    if (getComputedStyle(gridEl).gridTemplateRows !== 'masonry') {
-      let grid = {
-        _el: gridEl,
-        gap: parseFloat(getComputedStyle(gridEl).gridRowGap),
-        items: Array.from(gridEl.childNodes).filter(
-          c => c.nodeType === 1,
-        ) as HTMLDivElement[],
-        ncol: 0,
-      };
-
-      const layout = () => {
-        const ncol = getComputedStyle(grid._el).gridTemplateColumns.split(
-          ' ',
-        ).length;
-
-        if (ncol !== grid.ncol) {
-          grid.ncol = ncol;
-
-          grid.items.forEach(c => c.style.removeProperty('margin-top'));
-
-          if (grid.ncol > 1) {
-            grid.items.slice(ncol).forEach((c, i) => {
-              let prev_fin =
-                  grid.items[i].getBoundingClientRect()
-                    .bottom /* bottom edge of item above */,
-                curr_ini =
-                  c.getBoundingClientRect().top; /* top edge of current item */
-
-              c.style.marginTop = `${prev_fin + grid.gap - curr_ini}px`;
-            });
-          }
-        }
-      };
-
-      layout();
-
-      window.addEventListener('resize', () => {
-        layout();
-      });
-    }
-  }, []);
+  const viewPortWidth = useViewPortWidth();
 
   return (
     <AnimateSharedLayout>
-      <motion.div layout className={classes.list} ref={containerRef}>
-        <AnimatePresence>
-          {articles.map(article => (
-            <Article key={article.id} {...article} />
-          ))}
-        </AnimatePresence>
-      </motion.div>
+      {viewPortWidth < 1024 ? (
+        <div className={classes.column}>
+          <AnimatePresence>
+            {articles.map(article => (
+              <Article key={article.id} {...article} />
+            ))}
+          </AnimatePresence>
+        </div>
+      ) : (
+        <div className={classes['columns-container']}>
+          <div className={classes.column}>
+            <AnimatePresence>
+              {articles
+                .filter((_, i) => i % 2 === 0)
+                .map(article => (
+                  <Article key={article.id} {...article} />
+                ))}
+            </AnimatePresence>
+          </div>
+          <div className={classes.column}>
+            <AnimatePresence>
+              {articles
+                .filter((_, i) => i % 2 !== 0)
+                .map(article => (
+                  <Article key={article.id} {...article} />
+                ))}
+            </AnimatePresence>
+          </div>
+        </div>
+      )}
     </AnimateSharedLayout>
   );
 };

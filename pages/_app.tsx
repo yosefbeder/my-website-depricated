@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import useFlashFix from '../hooks/useFlashFix';
+import useViewPortWidth from '../hooks/useViewPortWidth';
 
 export const routeTransitions = {
   hidden: { opacity: 0, y: 60 },
@@ -19,18 +20,10 @@ export const routeTransitions = {
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const url = `${process.env.HOMEPAGE}${router.route}`;
-  const [viewPortWidth, setViewPortWidth] = useState(0);
+  const viewPortWidth = useViewPortWidth();
 
-  // css modules bug work-around
   useFlashFix();
 
-  useEffect(() => {
-    // Scroll whenever the page is
-    setViewPortWidth(window.innerWidth);
-    document.addEventListener('resize', () => {
-      setViewPortWidth(window.innerWidth);
-    });
-  }, []);
   return (
     <Layout>
       <Head>
