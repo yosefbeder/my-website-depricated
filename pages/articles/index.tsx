@@ -21,7 +21,7 @@ const Articles = ({
   articles,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { query, isReady } = useRouter();
-  const [filteredArticles, setFilteredArticles] = useState(articles);
+  const [filteredArticles, setFilteredArticles] = useState<ArticleType[]>();
 
   useEffect(() => {
     // filtering
@@ -40,7 +40,7 @@ const Articles = ({
     setFilteredArticles(result);
   }, [query]);
 
-  if (!isReady)
+  if (!isReady || !filteredArticles)
     return (
       <main className={classes.container}>
         <Head>
