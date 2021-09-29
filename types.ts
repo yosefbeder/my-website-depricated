@@ -14,3 +14,16 @@ export interface ErrorType {
   status: number;
   message: string;
 }
+
+export interface UserDataType {
+  avatarUrl: string;
+  name: string;
+  bio: string;
+  email: string;
+  githubUrl: string;
+  twitterUsername: string;
+}
+
+export interface PageProps {
+  userData: UserDataType;
+}

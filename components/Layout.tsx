@@ -1,11 +1,16 @@
 import React from 'react';
 import classes from '../styles/Layout.module.scss';
+import { UserDataType } from '../types';
 import Sidebar from './Sidebar';
 
-const Layout: React.FC = ({ children }) => {
+interface LayoutProps {
+  userData: UserDataType;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children, userData }) => {
   return (
     <div className={classes.container}>
-      <Sidebar />
+      <Sidebar {...userData} />
       {children}
     </div>
   );

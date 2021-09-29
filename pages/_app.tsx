@@ -1,7 +1,7 @@
 import '../styles/globals.scss';
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   useFlashFix();
 
   return (
-    <Layout>
+    <Layout userData={pageProps.userData}>
       <Head>
         <meta charSet="UTF-8" />
         <meta name="author" content="Yosef Beder" />
@@ -34,12 +34,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="I'm Yosef beder and this is my website which contains some information about me, the projects that I made and finally a blog in which I share the stuff that I learn."
         />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link
-          rel="preload"
-          href="https://api.github.com/users/yosefbeder"
-          as="fetch"
-          crossOrigin="anonymous"
-        ></link>
       </Head>
       <AnimatePresence
         exitBeforeEnter

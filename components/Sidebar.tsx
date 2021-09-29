@@ -8,57 +8,19 @@ import {
   FaTwitter as TwitterIcon,
   FaEnvelope as MailIcon,
 } from 'react-icons/fa';
-import useSWR from 'swr';
+import { UserDataType } from '../types';
 
 const routes = [
   { href: '/', name: 'Home' },
   { href: '/articles', name: 'Articles' },
 ];
 
-interface UserDataType {
-  avatarUrl: string;
-  name: string;
-  bio: string;
-  email: string;
-  githubUrl: string;
-  twitterUsername: string;
-}
-
-const fetcher = async (url: string) => {
-  const {
-    name,
-    html_url: githubUrl,
-    avatar_url: avatarUrl,
-    bio,
-    twitter_username: twitterUsername,
-  } = await fetch(url).then(req => req.json());
-
-  return {
-    name,
-    githubUrl,
-    avatarUrl,
-    bio,
-    twitterUsername,
-    email: 'dryosefbeder@gmail.com',
-  } as UserDataType;
-};
-
-const Sidebar = () => {
+const Sidebar: React.FC<UserDataType> = userData => {
   const { route } = useRouter();
 
-  const { data } = useSWR<UserDataType>(
-    'https://api.github.com/users/yosefbeder',
-    fetcher,
-    {
-      revalidateOnMount: true,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    },
-  );
+  if (Object.keys(userData).length === 0) return null;
 
-  if (!data) return <div></div>;
-
-  const { name, bio, avatarUrl, twitterUsername, email, githubUrl } = data;
+  const { name, bio, avatarUrl, twitterUsername, email, githubUrl } = userData;
 
   return (
     <aside className={classes.container}>

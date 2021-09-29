@@ -33,8 +33,8 @@ const Article: React.FC<ArticleType> = ({
 
   return (
     <motion.div
-      layout
       layoutId={id}
+      layout
       variants={variants}
       initial="hidden"
       animate="visible"
