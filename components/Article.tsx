@@ -33,12 +33,7 @@ const Article: React.FC<ArticleType> = ({
 
   return (
     <motion.div
-      layoutId={id}
       layout
-      variants={variants}
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
       className={classes.container}
       onMouseEnter={() => setMouseIn(true)}
       onMouseLeave={() => setMouseIn(false)}
@@ -58,6 +53,9 @@ const Article: React.FC<ArticleType> = ({
           <motion.div
             layout
             variants={variants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
             className={classes['tags-container']}
           >
             {tags.map(tag => (
@@ -71,7 +69,13 @@ const Article: React.FC<ArticleType> = ({
         <motion.h3 layout>{title}</motion.h3>
 
         {(mouseIn || isMobile) && (
-          <motion.p layout variants={variants}>
+          <motion.p
+            layout
+            variants={variants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+          >
             {description}
           </motion.p>
         )}

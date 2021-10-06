@@ -7,11 +7,9 @@ const getUserData = async (): Promise<UserDataType> => {
     avatar_url: avatarUrl,
     bio,
     twitter_username: twitterUsername,
-  } = await fetch('https://api.github.com/users/yosefbeder', {
-    headers: {
-      Authorization: process.env.GITHUB_PERSONAL_ACCESS_TOKEN as string,
-    },
-  }).then(req => req.json());
+  } = await fetch('https://api.github.com/users/yosefbeder').then(req =>
+    req.json(),
+  );
 
   return {
     name,
