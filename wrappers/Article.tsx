@@ -10,10 +10,12 @@ import hljs from 'highlight.js/lib/core';
 import ts from 'highlight.js/lib/languages/typescript';
 import js from 'highlight.js/lib/languages/javascript';
 import xml from 'highlight.js/lib/languages/xml';
+import json from 'highlight.js/lib/languages/json';
 
 hljs.registerLanguage('javascript', js);
 hljs.registerLanguage('typescript', ts);
 hljs.registerLanguage('xml', xml);
+hljs.registerLanguage('json', json);
 
 import 'highlight.js/styles/atom-one-dark.css';
 import { MDXProvider } from '@mdx-js/react';

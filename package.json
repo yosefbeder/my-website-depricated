@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predev": "node ./scripts/generate-user-data.mjs",
+    "build:data": "node ./scripts/generate-user-data.mjs",
+    "predev": "npm run build:data",
     "dev": "next dev",
-    "prebuild": "node ./scripts/generate-user-data.mjs",
+    "prebuild": "npm run build:data",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
