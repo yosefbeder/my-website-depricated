@@ -1,20 +1,10 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import classes from '../../styles/article-page.module.scss';
-import React, { useEffect } from 'react';
-import Markdown from '../../components/Markdown';
+import { useEffect, useRef, useState } from 'react';
+import classes from '../styles/article-page.module.scss';
 import Image from 'next/image';
-import Link from '../../components/Link';
-import { FullArticleType, PageProps } from '../../types';
-import TypographyMain from '../../components/TypographyMain';
+import Link from '../components/Link';
+import { ArticleType } from '../types';
+import TypographyMain from '../components/TypographyMain';
 import Head from 'next/head';
-import { getArticle, getAllArticles } from '../../utils/mongodb';
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: (await getAllArticles()).map(({ id }) => ({ params: { id } })),
-    fallback: 'blocking',
-  };
-};
 
 import hljs from 'highlight.js/lib/core';
 import ts from 'highlight.js/lib/languages/typescript';
@@ -26,41 +16,31 @@ hljs.registerLanguage('typescript', ts);
 hljs.registerLanguage('xml', xml);
 
 import 'highlight.js/styles/atom-one-dark.css';
-import getUserData from '../../utils/get-user-data';
+import { MDXProvider } from '@mdx-js/react';
 
-export const getStaticProps: GetStaticProps<FullArticleType & PageProps> =
-  async ({ params }) => {
-    try {
-      const article = await getArticle(params!.id as string);
-
-      return {
-        props: { ...article, userData: await getUserData() },
-        revalidate: 60,
-      };
-    } catch (_) {
-      return {
-        notFound: true,
-      };
-    }
-  };
-
-const Article: NextPage<FullArticleType> = ({
+const Article: React.FC<ArticleType> = ({
   imgSrc,
   title,
   description,
   date,
   tags,
-  markdown,
+  children,
 }) => {
-  const timeToRead = Math.round(markdown.split(' ').length / 200);
+  const [timeToRead, setTimeToRead] = useState(0);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    document
-      .querySelector<HTMLDivElement>('article')!
-      .querySelectorAll<HTMLDivElement>('pre > code')
+    // highlight code
+    wrapperRef
+      .current!.querySelectorAll<HTMLDivElement>('pre > code')
       .forEach(code => {
         hljs.highlightBlock(code);
       });
+
+    // setting reading time
+    setTimeToRead(
+      Math.round(wrapperRef.current!.innerText.split(' ').length / 200),
+    );
   }, []);
 
   return (
@@ -98,7 +78,9 @@ const Article: NextPage<FullArticleType> = ({
           - {timeToRead} minute{timeToRead !== 1 && 's'}
         </small>
       </header>
-      <Markdown>{markdown}</Markdown>
+      <article ref={wrapperRef}>
+        <MDXProvider components={{ a: Link }}>{children}</MDXProvider>
+      </article>
     </TypographyMain>
   );
 };

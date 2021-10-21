@@ -32,3 +32,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# generated data
+public/user-data.json

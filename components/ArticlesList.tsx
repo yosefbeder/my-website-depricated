@@ -1,8 +1,7 @@
-import React from 'react';
 import { ArticleType } from '../types';
 import Article from './Article';
 import classes from '../styles/Article.module.scss';
-import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
+import { AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 import useViewPortWidth from '../hooks/useViewPortWidth';
 
 interface ArticlesListProps {
@@ -14,30 +13,32 @@ const ArticlesList: React.FC<ArticlesListProps> = ({ articles }) => {
 
   return (
     <AnimateSharedLayout>
-      {viewPortWidth < 1024 ? (
-        <div className={classes.column}>
-          {articles.map(article => (
-            <Article key={article.id} {...article} />
-          ))}
-        </div>
-      ) : (
-        <div className={classes['columns-container']}>
+      <AnimatePresence>
+        {viewPortWidth < 1024 ? (
           <div className={classes.column}>
-            {articles
-              .filter((_, i) => i % 2 === 0)
-              .map(article => (
-                <Article key={article.id} {...article} />
-              ))}
+            {articles.map(article => (
+              <Article key={article.id} {...article} />
+            ))}
           </div>
-          <div className={classes.column}>
-            {articles
-              .filter((_, i) => i % 2 !== 0)
-              .map(article => (
-                <Article key={article.id} {...article} />
-              ))}
+        ) : (
+          <div className={classes['columns-container']}>
+            <div className={classes.column}>
+              {articles
+                .filter((_, i) => i % 2 === 0)
+                .map(article => (
+                  <Article key={article.id} {...article} />
+                ))}
+            </div>
+            <div className={classes.column}>
+              {articles
+                .filter((_, i) => i % 2 !== 0)
+                .map(article => (
+                  <Article key={article.id} {...article} />
+                ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </AnimateSharedLayout>
   );
 };

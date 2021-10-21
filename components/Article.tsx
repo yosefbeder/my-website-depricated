@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from '../components/Link';
 import Image from 'next/image';
 import classes from '../styles/Article.module.scss';
@@ -59,7 +59,7 @@ const Article: React.FC<ArticleType> = ({
             className={classes['tags-container']}
           >
             {tags.map(tag => (
-              <Link key={tag} href={`/articles?tags=${tag}`}>
+              <Link key={tag} href={`/articles?tags=${tag}`} target="_self">
                 {tag}
               </Link>
             ))}
@@ -81,7 +81,7 @@ const Article: React.FC<ArticleType> = ({
         )}
       </motion.div>
       <motion.div layout className={classes.footer}>
-        <Link variant="btn" href={`/articles/${id}`}>
+        <Link variant="btn" href={`/articles/${id}`} target="_self">
           Continue Reading
         </Link>
         <small>

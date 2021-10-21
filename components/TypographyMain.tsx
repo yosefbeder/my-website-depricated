@@ -1,4 +1,3 @@
-import React from 'react';
 import classes from '../styles/Layout.module.scss';
 import { motion } from 'framer-motion';
 import { routeTransitions } from '../pages/_app';

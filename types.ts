@@ -1,6 +1,6 @@
 export interface ArticleType {
+  id?: string;
   imgSrc: string;
-  id: string;
   title: string;
   tags: string[];
   description: string;
@@ -13,17 +13,4 @@ export interface FullArticleType extends ArticleType {
 export interface ErrorType {
   status: number;
   message: string;
-}
-
-export interface UserDataType {
-  avatarUrl: string;
-  name: string;
-  bio: string;
-  email: string;
-  githubUrl: string;
-  twitterUsername: string;
-}
-
-export interface PageProps {
-  userData: UserDataType;
 }

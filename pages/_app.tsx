@@ -1,7 +1,6 @@
 import '../styles/globals.scss';
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
-import React from 'react';
 import Head from 'next/head';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
@@ -13,19 +12,23 @@ export const routeTransitions = {
   enter: {
     opacity: 1,
     y: 0,
+    transition: { duration: 0.35, ease: 'backOut' },
   },
-  exit: { opacity: 0, x: 120, transition: { duration: 0.35, ease: 'easeIn' } },
+  exit: {
+    opacity: 0,
+    x: 60,
+    transition: { duration: 0.35, ease: 'backIn' },
+  },
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const url = `${process.env.HOMEPAGE}${router.route}`;
   const viewPortWidth = useViewPortWidth();
 
   useFlashFix();
 
   return (
-    <Layout userData={pageProps.userData}>
+    <Layout>
       <Head>
         <meta charSet="UTF-8" />
         <meta name="author" content="Yosef Beder" />
@@ -37,7 +40,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <AnimatePresence
         exitBeforeEnter
-        initial={false}
         onExitComplete={() => {
           if (viewPortWidth >= 640) {
             document.querySelector('main')!.scrollTop = 0;
@@ -46,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           }
         }}
       >
-        <Component {...pageProps} key={url} />
+        <Component {...pageProps} key={router.route} />
       </AnimatePresence>
     </Layout>
   );

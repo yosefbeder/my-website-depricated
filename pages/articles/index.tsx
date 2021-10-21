@@ -1,29 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import classes from '../../styles/articles-page.module.scss';
-import { ArticleType, PageProps } from '../../types';
+import { ArticleType } from '../../types';
 import { GetStaticProps, NextPage } from 'next';
 import ArticlesList from '../../components/ArticlesList';
 import Head from 'next/head';
-import { getAllArticles } from '../../utils/mongodb';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import { routeTransitions } from '../_app';
-import getUserData from '../../utils/get-user-data';
+import getAllArticles from '../../utils/get-all-articles';
 
 interface ArticlesProps {
   articles: ArticleType[];
 }
 
-export const getStaticProps: GetStaticProps<ArticlesProps & PageProps> =
-  async () => {
-    return {
-      props: {
-        articles: await getAllArticles(),
-        userData: await getUserData(),
-      },
-      revalidate: 60,
-    };
+export const getStaticProps: GetStaticProps<ArticlesProps> = async () => {
+  return {
+    props: {
+      articles: await getAllArticles(),
+    },
   };
+};
 
 const Articles: NextPage<ArticlesProps> = ({ articles }) => {
   const { query, isReady } = useRouter();

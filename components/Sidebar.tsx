@@ -1,4 +1,3 @@
-import React from 'react';
 import classes from '../styles/Sidebar.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,17 +7,15 @@ import {
   FaTwitter as TwitterIcon,
   FaEnvelope as MailIcon,
 } from 'react-icons/fa';
-import { UserDataType } from '../types';
+import userData from '../public/user-data.json';
 
 const routes = [
   { href: '/', name: 'Home' },
   { href: '/articles', name: 'Articles' },
 ];
 
-const Sidebar: React.FC<UserDataType> = userData => {
+const Sidebar = () => {
   const { route } = useRouter();
-
-  if (Object.keys(userData).length === 0) return null;
 
   const { name, bio, avatarUrl, twitterUsername, email, githubUrl } = userData;
 
