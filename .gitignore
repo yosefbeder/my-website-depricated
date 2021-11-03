@@ -35,3 +35,4 @@ yarn-error.log*
 
 # generated data
 public/user-data.json
+public/images-base64.json

@@ -1,14 +1,14 @@
 @import './variables.scss';
 
 @media (min-width: $screen-sm) {
-  .container {
-    height: 100vh;
-    flex: 1;
-    overflow-y: scroll;
-    scrollbar-width: none;
-  }
+	.container {
+		height: 100vh;
+		flex: 1;
+		overflow-y: scroll;
+		scrollbar-width: none;
+	}
 
-  .container::-webkit-scrollbar {
-    width: 0;
-  }
+	.container::-webkit-scrollbar {
+		width: 0;
+	}
 }

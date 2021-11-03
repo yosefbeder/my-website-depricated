@@ -5,6 +5,7 @@ import Link from '../components/Link';
 import { ArticleType } from '../types';
 import TypographyMain from '../components/TypographyMain';
 import Head from 'next/head';
+import imagesBase64 from '../public/images-base64.json';
 
 import hljs from 'highlight.js/lib/core';
 import ts from 'highlight.js/lib/languages/typescript';
@@ -21,70 +22,71 @@ import 'highlight.js/styles/atom-one-dark.css';
 import { MDXProvider } from '@mdx-js/react';
 
 const Article: React.FC<ArticleType> = ({
-  imgSrc,
-  title,
-  description,
-  date,
-  tags,
-  children,
+	id,
+	title,
+	description,
+	date,
+	tags,
+	children,
 }) => {
-  const [timeToRead, setTimeToRead] = useState(0);
-  const wrapperRef = useRef<HTMLDivElement>(null);
+	const [timeToRead, setTimeToRead] = useState(0);
+	const wrapperRef = useRef<HTMLDivElement>(null);
+	const [isLoaded, setIsLoaded] = useState(false);
 
-  useEffect(() => {
-    // highlight code
-    wrapperRef
-      .current!.querySelectorAll<HTMLDivElement>('pre > code')
-      .forEach(code => {
-        hljs.highlightBlock(code);
-      });
+	useEffect(() => {
+		// highlight code
+		hljs.highlightAll();
 
-    // setting reading time
-    setTimeToRead(
-      Math.round(wrapperRef.current!.innerText.split(' ').length / 200),
-    );
-  }, []);
+		// setting reading time
+		setTimeToRead(
+			Math.round(wrapperRef.current!.innerText.split(' ').length / 200),
+		);
+	}, []);
 
-  return (
-    <TypographyMain>
-      <Head>
-        <title>Articles &gt; {title}</title>
-        <meta name="description" content={description} />
-      </Head>
-      <header className={classes.header}>
-        <Image
-          src={imgSrc}
-          alt={title}
-          width={704}
-          height={396}
-          objectFit="cover"
-          className={classes.img}
-        />
-        <h1>{title}</h1>
-        <div className={classes['tags-container']}>
-          {tags.map(tag => (
-            <Link key={tag} href={`/articles?tags=${tag}`}>
-              {tag}
-            </Link>
-          ))}
-        </div>
-        <p>
-          <i>{description}</i>
-        </p>
-        <small>
-          {new Intl.DateTimeFormat('en', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          }).format(new Date(date))}{' '}
-          - {timeToRead} minute{timeToRead !== 1 && 's'}
-        </small>
-      </header>
-      <article ref={wrapperRef}>
-        <MDXProvider components={{ a: Link }}>{children}</MDXProvider>
-      </article>
-    </TypographyMain>
-  );
+	return (
+		<TypographyMain>
+			<Head>
+				<title>Articles &gt; {title}</title>
+				<meta name="description" content={description} />
+			</Head>
+			<header className={classes.header}>
+				<Image
+					src={`/images/${id}.png`}
+					placeholder="blur"
+					blurDataURL={imagesBase64[id as keyof typeof imagesBase64]}
+					alt={title}
+					width={704}
+					height={396}
+					objectFit="cover"
+					className={`img ${isLoaded && 'img--loaded'}`}
+					onLoadingComplete={() => setIsLoaded(true)}
+				/>
+
+				<h1>{title}</h1>
+				<div className={classes['tags-container']}>
+					{tags.map(tag => (
+						<Link key={tag} href={`/articles?tags=${tag}`}>
+							{tag}
+						</Link>
+					))}
+				</div>
+				<p>
+					<i>{description}</i>
+				</p>
+				<small>
+					{new Intl.DateTimeFormat('en', {
+						year: 'numeric',
+						month: 'long',
+						day: 'numeric',
+					}).format(new Date(date))}{' '}
+					- {timeToRead} minute{timeToRead !== 1 && 's'}
+				</small>
+			</header>
+			<article ref={wrapperRef}>
+				<MDXProvider components={{ a: Link }}>{children}</MDXProvider>
+			</article>
+		</TypographyMain>
+	);
 };
 
 export default Article;

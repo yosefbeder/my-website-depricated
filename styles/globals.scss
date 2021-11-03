@@ -1,3 +1,13 @@
 @import './reset-css.scss';
 @import './typography.scss';
 @import './components.scss';
+
+.img {
+	filter: blur(1.5rem);
+
+	&--loaded {
+		filter: blur(0);
+	}
+
+	transition: filter 250ms;
+}

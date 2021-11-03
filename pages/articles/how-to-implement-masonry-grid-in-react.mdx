@@ -1,12 +1,12 @@
 import Wrapper from '../../wrappers/Article.tsx';
 
 export const metaData = {
-  title: 'How to implement masonry grid in React?',
-  imgSrc: 'https://i.postimg.cc/sygqTxtj/2021-09-13-09-32-12.png',
-  description:
-    "Mansory grid looks amazing and the latest versions of firefox started to support it, but at the moment you can't use the native option, so This article provides a solution.",
-  tags: ['react'],
-  date: '2021-09-10',
+	id: 'how-to-implement-masonry-grid-in-react',
+	title: 'How to implement masonry grid in React?',
+	description:
+		"Mansory grid looks amazing and the latest versions of firefox started to support it, but at the moment you can't use the native option, so This article provides a solution.",
+	tags: ['react'],
+	date: '2021-09-10',
 };
 
 export default ({ children }) => <Wrapper {...metaData}>{children}</Wrapper>;
@@ -39,15 +39,15 @@ Now, We will take every step of these and understand it more.
 
 ```js
 const ArticlesList = () => {
-  const gridContainerRef = useRef();
+	const gridContainerRef = useRef();
 
-  return (
-    <div className="container" ref={gridContainerRef}>
-      {articlesData.map((articleData, index) => (
-        <Article key={index} {...articleData} />
-      ))}
-    </div>
-  );
+	return (
+		<div className="container" ref={gridContainerRef}>
+			{articlesData.map((articleData, index) => (
+				<Article key={index} {...articleData} />
+			))}
+		</div>
+	);
 };
 ```
 
@@ -55,20 +55,20 @@ const ArticlesList = () => {
 
 ```js
 useEffect(() => {
-  const gridEl = gridContainerRef.current;
+	const gridEl = gridContainerRef.current;
 
-  const gridInfo = {
-    items: Array.from(gridEl.querySelectorAll('.article')),
+	const gridInfo = {
+		items: Array.from(gridEl.querySelectorAll('.article')),
 
-    rowGap: parseFloat(
-      getComputedStyle(gridEl).getPropertyValue('grid-row-gap'),
-    ),
+		rowGap: parseFloat(
+			getComputedStyle(gridEl).getPropertyValue('grid-row-gap'),
+		),
 
-    columnsNumber: getComputedStyle(gridEl)
-      .getPropertyValue('grid-template-columns')
+		columnsNumber: getComputedStyle(gridEl)
+			.getPropertyValue('grid-template-columns')
 
-      .split(' ').length,
-  };
+			.split(' ').length,
+	};
 }, []);
 ```
 
@@ -106,19 +106,19 @@ This is the final formula `$current-item-top-edge - $above-item-bottom-edge + $g
 
 ```js
 useEffect(() => {
-  // 1.
-  gridInfo.items.forEach((item, index) => {
-    // 2.
-    if (index < gridInfo.columnsNumber) return;
-    // 3.
-    const itemAbove = gridInfo.items[index - gridInfo.columnsNumber];
-    // 4.
-    item.style.marginTop = `${
-      itemAbove.getBoundingClientRect().bottom -
-      item.getBoundingClientRect().top +
-      gridInfo.rowGap
-    }px`;
-  });
+	// 1.
+	gridInfo.items.forEach((item, index) => {
+		// 2.
+		if (index < gridInfo.columnsNumber) return;
+		// 3.
+		const itemAbove = gridInfo.items[index - gridInfo.columnsNumber];
+		// 4.
+		item.style.marginTop = `${
+			itemAbove.getBoundingClientRect().bottom -
+			item.getBoundingClientRect().top +
+			gridInfo.rowGap
+		}px`;
+	});
 }, []);
 ```
 
@@ -140,61 +140,61 @@ To do that we need to:
 
 ```js
 useEffect(() => {
-  const gridEl = gridContainerRef.current;
-  const gridInfo = {
-    items: Array.from(gridEl.querySelectorAll('.article')),
-    rowGap: parseFloat(
-      getComputedStyle(gridEl).getPropertyValue('grid-row-gap'),
-    ),
-    columnsNumber: getComputedStyle(gridEl)
-      .getPropertyValue('grid-template-columns')
-      .split(' ').length,
-  };
+	const gridEl = gridContainerRef.current;
+	const gridInfo = {
+		items: Array.from(gridEl.querySelectorAll('.article')),
+		rowGap: parseFloat(
+			getComputedStyle(gridEl).getPropertyValue('grid-row-gap'),
+		),
+		columnsNumber: getComputedStyle(gridEl)
+			.getPropertyValue('grid-template-columns')
+			.split(' ').length,
+	};
 
-  // 1.
+	// 1.
 
-  const layout = () => {
-    gridInfo.items.forEach((item, index) => {
-      if (index < gridInfo.columnsNumber) return;
-      const itemAbove = gridInfo.items[index - gridInfo.columnsNumber];
-      // *
-      item.style.marginTop = 0;
-      item.style.marginTop = `${
-        itemAbove.getBoundingClientRect().bottom -
-        item.getBoundingClientRect().top +
-        gridInfo.rowGap
-      }px`;
-    });
-  };
-  // 2.
-  layout();
-  // 3.
-  window.addEventListener('resize', e => {
-    // 4.
-    const currentColumnsNumber = getComputedStyle(gridEl)
-      .getPropertyValue('grid-template-columns')
-      .split(' ').length;
-    if (currentColumnsNumber === gridInfo.columnsNumber) return;
-    gridInfo.columnsNumber = currentColumnsNumber;
-    layout();
-  });
+	const layout = () => {
+		gridInfo.items.forEach((item, index) => {
+			if (index < gridInfo.columnsNumber) return;
+			const itemAbove = gridInfo.items[index - gridInfo.columnsNumber];
+			// *
+			item.style.marginTop = 0;
+			item.style.marginTop = `${
+				itemAbove.getBoundingClientRect().bottom -
+				item.getBoundingClientRect().top +
+				gridInfo.rowGap
+			}px`;
+		});
+	};
+	// 2.
+	layout();
+	// 3.
+	window.addEventListener('resize', e => {
+		// 4.
+		const currentColumnsNumber = getComputedStyle(gridEl)
+			.getPropertyValue('grid-template-columns')
+			.split(' ').length;
+		if (currentColumnsNumber === gridInfo.columnsNumber) return;
+		gridInfo.columnsNumber = currentColumnsNumber;
+		layout();
+	});
 }, []);
 ```
 
 ## Full example
 
 <iframe
-  src="https://codesandbox.io/embed/masonry-grid-in-react-2ie5x?autoresize=1&codemirror=1&fontsize=14&theme=dark&view=preview"
-  style={{
-    width: '100%',
-    height: 500,
-    border: 0,
-    borderRadius: 4,
-    overflow: 'hidden',
-  }}
-  title="Masonry-grid-in-react"
-  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+	src="https://codesandbox.io/embed/masonry-grid-in-react-2ie5x?autoresize=1&codemirror=1&fontsize=14&theme=dark&view=preview"
+	style={{
+		width: '100%',
+		height: 500,
+		border: 0,
+		borderRadius: 4,
+		overflow: 'hidden',
+	}}
+	title="Masonry-grid-in-react"
+	allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+	sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>
 
 ## Notes
@@ -205,14 +205,14 @@ If you want to check if the browser supports it or not before using the javascri
 
 ```js
 useEffect(() => {
-  if (
-    getComputedStyle(gridEl).getPropertyValue('grid-template-rows') !==
-    'masonry'
-  ) {
-    // the logic that we implemented in the article
-  } else {
-    console.log("You're browser support masonry grid 🎉🎉🎉");
-  }
+	if (
+		getComputedStyle(gridEl).getPropertyValue('grid-template-rows') !==
+		'masonry'
+	) {
+		// the logic that we implemented in the article
+	} else {
+		console.log("You're browser support masonry grid 🎉🎉🎉");
+	}
 }, []);
 ```
 

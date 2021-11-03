@@ -1,12 +1,12 @@
 import Wrapper from '../../wrappers/Article.tsx';
 
 export const metaData = {
-  title: 'Implementing undo/redo in a drawing app with Redux',
-  imgSrc: 'https://i.postimg.cc/54ncCjqf/redux.jpg',
-  description:
-    'undo/redo is a cool future to add in your apps and redux makes it easy, but how can I handle it when my state is huge, like in a drawing app for example?',
-  tags: ['redux'],
-  date: '2021-09-26',
+	id: 'implementing-undo-redo-in-a-drawing-app-with-redux',
+	title: 'Implementing undo/redo in a drawing app with Redux',
+	description:
+		'undo/redo is a cool future to add in your apps and redux makes it easy, but how can I handle it when my state is huge, like in a drawing app for example?',
+	tags: ['redux'],
+	date: '2021-09-26',
 };
 
 export default ({ children }) => <Wrapper {...metaData}>{children}</Wrapper>;
@@ -28,9 +28,9 @@ So I decided to invent my own way.
 ```ts
 // the way mentioned in the docs
 interface State {
-  past: Array<T>;
-  present: T;
-  future: Array<T>;
+	past: Array<T>;
+	present: T;
+	future: Array<T>;
 }
 ```
 
@@ -40,15 +40,15 @@ In my case `T` is of this type
 
 ```ts
 interface Path {
-  // these are the configs of that this paths was drawn with.
-  config: {
-    size: number;
-    blur: number;
-    color: number;
-  };
+	// these are the configs of that this paths was drawn with.
+	config: {
+		size: number;
+		blur: number;
+		color: number;
+	};
 
-  // these are the points that is path consists of.
-  points: [number, number][];
+	// these are the points that is path consists of.
+	points: [number, number][];
 }
 
 type T = Path[];
@@ -64,9 +64,9 @@ And the state of the app is the result of merging `past` and `present`.
 
 ```ts
 interface State {
-  past: Path[];
-  present: Path;
-  future: Path[];
+	past: Path[];
+	present: Path;
+	future: Path[];
 }
 ```
 
@@ -90,14 +90,14 @@ As I said the implementation of this startegy will be different so I will tell y
 
 ```js
 return {
-    ...state,
-    paths: {
-        ...state.paths,
-        // 1.
-        present: action.payload as Path,
-        // 2.
-        future: [],
-    },
+	...state,
+	paths: {
+		...state.paths,
+		// 1.
+		present: action.payload as Path,
+		// 2.
+		future: [],
+	},
 };
 ```
 
@@ -111,15 +111,15 @@ return {
 
 ```js
 return {
-    ...state,
-    paths: {
-        // 1.
-        past: [...state.paths.past, state.paths.present],
-        // 2.
-        present: action.payload as Path,
-        // 3.
-        future: [],
-    },
+	...state,
+	paths: {
+		// 1.
+		past: [...state.paths.past, state.paths.present],
+		// 2.
+		present: action.payload as Path,
+		// 3.
+		future: [],
+	},
 };
 ```
 
@@ -133,13 +133,13 @@ return {
 
 ```js
 return {
-    ...state,
-    paths: {
-        // 2.
-        present: null,
-        // 1.
-        future: [state.paths.present!, ...state.paths.future],
-    },
+	...state,
+	paths: {
+		// 2.
+		present: null,
+		// 1.
+		future: [state.paths.present!, ...state.paths.future],
+	},
 };
 ```
 
@@ -153,15 +153,15 @@ return {
 
 ```js
 return {
-    ...state,
-    paths: {
-        // 1.
-        past: state.paths.past.slice(0, -1),
-        // 2.
-        present: state.paths.past[state.paths.past.length - 1],
-        // 3.
-        future: [state.paths.present!, ...state.paths.future],
-    },
+	...state,
+	paths: {
+		// 1.
+		past: state.paths.past.slice(0, -1),
+		// 2.
+		present: state.paths.past[state.paths.past.length - 1],
+		// 3.
+		future: [state.paths.present!, ...state.paths.future],
+	},
 }
 ```
 
@@ -175,14 +175,14 @@ return {
 
 ```js
 return {
-  ...state,
-  paths: {
-    past: state.paths.past,
-    // 2.
-    present: state.paths.future[0],
-    // 1.
-    future: state.paths.future.slice(1),
-  },
+	...state,
+	paths: {
+		past: state.paths.past,
+		// 2.
+		present: state.paths.future[0],
+		// 1.
+		future: state.paths.future.slice(1),
+	},
 };
 ```
 
@@ -196,15 +196,15 @@ return {
 
 ```js
 return {
-    ...state,
-    paths: {
-        // 3.
-        past: [...state.paths.past, state.paths.present!],
-        // 2.
-        present: state.paths.future[0],
-        // 1.
-        future: state.paths.future.slice(1),
-    },
+	...state,
+	paths: {
+		// 3.
+		past: [...state.paths.past, state.paths.present!],
+		// 2.
+		present: state.paths.future[0],
+		// 1.
+		future: state.paths.future.slice(1),
+	},
 }
 ```
 

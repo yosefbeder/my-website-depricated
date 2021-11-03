@@ -1,35 +1,37 @@
 {
-  "name": "my-personal-website",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "build:data": "node ./scripts/generate-user-data.mjs",
-    "predev": "npm run build:data",
-    "dev": "next dev",
-    "prebuild": "npm run build:data",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@mdx-js/loader": "^1.6.22",
-    "@mdx-js/react": "^1.6.22",
-    "@next/mdx": "^11.1.2",
-    "framer-motion": "^4.1.17",
-    "highlight.js": "^11.2.0",
-    "next": "11.1.2",
-    "next-images": "^1.8.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-icons": "^4.2.0"
-  },
-  "devDependencies": {
-    "@types/react": "17.0.19",
-    "@types/mdx-js__react": "^1.5.4",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.1.2",
-    "typescript": "4.4.2",
-    "node-fetch": "^3.0.0",
-    "sass": "^1.39.0"
-  }
+	"name": "my-personal-website",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"build:data": "node ./scripts/generate-user-data.mjs",
+		"build:placeholder-images": "node ./scripts/generate-placeholder-images.js",
+		"predev": "npm run build:data && npm run build:placeholder-images",
+		"dev": "next dev",
+		"prebuild": "npm run build:data && npm run build:placeholder-images",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@mdx-js/loader": "^1.6.22",
+		"@mdx-js/react": "^1.6.22",
+		"@next/mdx": "^11.1.2",
+		"framer-motion": "^4.1.17",
+		"highlight.js": "^11.2.0",
+		"next": "11.1.2",
+		"next-images": "^1.8.1",
+		"react": "17.0.2",
+		"react-dom": "17.0.2",
+		"react-icons": "^4.2.0"
+	},
+	"devDependencies": {
+		"@types/mdx-js__react": "^1.5.4",
+		"@types/react": "17.0.19",
+		"eslint": "7.32.0",
+		"eslint-config-next": "11.1.2",
+		"node-fetch": "^3.0.0",
+		"sass": "^1.39.0",
+		"sharp": "^0.29.2",
+		"typescript": "4.4.2"
+	}
 }
