@@ -58,14 +58,14 @@ const Article: React.FC<ArticleType> = ({
 					width={704}
 					height={396}
 					objectFit="cover"
-					className={`img ${isLoaded && 'img--loaded'}`}
+					className={`img ${isLoaded ? 'img--loaded' : ''}`}
 					onLoadingComplete={() => setIsLoaded(true)}
 				/>
 
 				<h1>{title}</h1>
 				<div className={classes['tags-container']}>
 					{tags.map(tag => (
-						<Link key={tag} href={`/articles?tags=${tag}`}>
+						<Link key={tag} href={`/articles?tags=${tag}`} target="_self">
 							{tag}
 						</Link>
 					))}
