@@ -44,7 +44,7 @@ const Article: React.FC<ArticleType> = ({
 					src={`/images/${id}.png`}
 					placeholder="blur"
 					blurDataURL={imagesBase64[id as keyof typeof imagesBase64]}
-					className={`${classes.img} img ${isLoaded && 'img--loaded'}`}
+					className={`img ${isLoaded ? 'img--loaded' : ''} ${classes.img}`}
 					onLoadingComplete={() => setIsLoaded(true)}
 					objectFit="cover"
 					alt={title}
