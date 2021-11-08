@@ -1,113 +1,117 @@
 @import './variables.scss';
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 
-  padding: $space-lg;
-  border-bottom: 1px solid $color-gray-200;
+	padding: $space-lg;
+	border-bottom: 1px solid $color-gray-200;
 
-  & > *:not(:last-child) {
-    margin-bottom: $space-2xl;
-  }
+	& > *:not(:last-child) {
+		margin-bottom: $space-2xl;
+	}
 }
 
 .avatar {
-  border-radius: $rounded-full;
+	border-radius: $rounded-full;
 }
 
 .personal-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 
-  & > * {
-    margin: 0;
-  }
+	& > * {
+		margin: 0;
+	}
 
-  & > *:not(:last-child) {
-    margin-bottom: $space-lg;
-  }
+	& > *:not(:last-child) {
+		margin-bottom: $space-lg;
+	}
 
-  // because I can't override Next image with the previus code
+	// because I can't override Next image with the previus code
 
-  .name {
-    margin-top: $space-lg;
-  }
+	.name {
+		margin-top: $space-lg;
+	}
 }
 
 .nav,
 .contact-info {
-  display: flex;
+	display: flex;
 
-  & > *:not(:last-child) {
-    margin-right: $space-lg;
-  }
+	& > *:not(:last-child) {
+		margin-right: $space-lg;
+	}
 }
 
 @media (min-width: $screen-sm) {
-  .container {
-    flex: 0 0 16.5rem;
-    border-bottom: 0;
-    border-right: 1px solid $color-gray-200;
-    align-self: flex-start;
-  }
+	.container {
+		flex: 0 0 16.5rem;
+		border-bottom: 0;
+		border-right: 1px solid $color-gray-200;
+		align-self: flex-start;
+	}
 
-  .nav {
-    flex-direction: column;
+	.nav {
+		flex-direction: column;
 
-    & > *:not(:last-child) {
-      margin: 0;
-      margin-bottom: $space-lg;
-    }
-  }
+		& > *:not(:last-child) {
+			margin: 0;
+			margin-bottom: $space-lg;
+		}
+	}
 }
 
 @media (min-width: $screen-md) {
-  .container {
-    flex: 0 0 20rem;
-  }
+	.container {
+		flex: 0 0 20rem;
+	}
 }
 
 .nav-link {
-  font-size: $text-md;
-  color: $color-gray-500;
-  transition: color 100ms;
+	font-size: $text-md;
+	color: $color-gray-500;
+	transition: color 100ms;
 
-  &:hover {
-    color: $color-gray-700;
-  }
+	&:hover {
+		color: $color-gray-700;
+	}
 
-  &:active,
-  &--selected,
-  &--selected:hover {
-    color: $color-blue-600;
-  }
+	&:active,
+	&--selected,
+	&--selected:hover {
+		color: $color-blue-600;
+	}
 }
 
 .icon-link {
-  & > svg {
-    color: $color-gray-500;
-    width: 2.2rem;
-    height: 2.2rem;
+	& > svg {
+		color: $color-gray-500;
+		width: 2.2rem;
+		height: 2.2rem;
 
-    transition: color 100ms;
-  }
+		transition: color 100ms;
+	}
 
-  &--twitter:hover > svg {
-    color: $color-twitter;
-  }
+	&--github:hover > svg {
+		color: $color-github;
+	}
 
-  &--github:hover > svg {
-    color: $color-github;
-  }
+	&--linkedIn:hover > svg {
+		color: $color-linkedIn;
+	}
 
-  &--mail:hover > svg {
-    color: $color-mail;
-  }
+	&--codeSandbox:hover > svg {
+		color: $color-codeSandbox;
+	}
+
+	&--mail:hover > svg {
+		color: $color-mail;
+	}
 }
 
 .copyright {
-  align-self: center;
+	align-self: center;
 }

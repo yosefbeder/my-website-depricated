@@ -4,6 +4,7 @@ import fetch from 'node-fetch';
 
 const getUserData = async () => {
 	const {
+		login: username,
 		name,
 		html_url: githubUrl,
 		avatar_url: avatarUrl,
@@ -18,8 +19,9 @@ const getUserData = async () => {
 		githubUrl,
 		avatarUrl,
 		bio,
-		twitterUsername,
 		email: 'dryosefbeder@gmail.com',
+		linkedInUrl: `https://www.linkedin.com/in/${username}/`,
+		codeSandboxUrl: `https://codesandbox.io/u/${username}/`,
 	};
 };
 
