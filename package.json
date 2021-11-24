@@ -13,20 +13,23 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@mdx-js/loader": "^1.6.22",
 		"@mdx-js/react": "^1.6.22",
-		"@next/mdx": "^11.1.2",
+		"next": "12",
 		"framer-motion": "^4.1.17",
 		"highlight.js": "^11.2.0",
-		"next": "11.1.2",
 		"next-images": "^1.8.1",
 		"react": "17.0.2",
 		"react-dom": "17.0.2",
-		"react-icons": "^4.2.0"
+		"react-icons": "^4.2.0",
+		"styled-components": "^5.3.3"
 	},
 	"devDependencies": {
+		"@mdx-js/loader": "^1.6.22",
+		"@next/mdx": "^11.1.2",
+		"@types/styled-components": "^5.1.15",
 		"@types/mdx-js__react": "^1.5.4",
 		"@types/react": "17.0.19",
+		"babel-plugin-styled-components": "^2.0.1",
 		"eslint": "7.32.0",
 		"eslint-config-next": "11.1.2",
 		"node-fetch": "^3.0.0",
