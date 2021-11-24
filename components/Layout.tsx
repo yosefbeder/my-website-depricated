@@ -1,13 +1,23 @@
-import classes from '../styles/Layout.module.scss';
+import styled from 'styled-components';
+import breakPoints from '../constants/break-points';
 import Sidebar from './Sidebar';
 
+const Container = styled.div`
+	max-width: ${breakPoints.lg}px;
+	margin: 0 auto;
+
+	@media (min-width: ${breakPoints.sm}px) {
+		display: flex;
+	}
+`;
+
 const Layout: React.FC = ({ children }) => {
-  return (
-    <div className={classes.container}>
-      <Sidebar />
-      {children}
-    </div>
-  );
+	return (
+		<Container>
+			<Sidebar />
+			{children}
+		</Container>
+	);
 };
 
 export default Layout;
