@@ -60,38 +60,32 @@ const ArticlesList: React.FC<ArticlesListProps> = ({ articles }) => {
 			exit="exit"
 			ref={mainRef}
 		>
-			<AnimateSharedLayout>
-				<AnimatePresence>
-					{viewPortWidth < 1024 ? (
+			{viewPortWidth < 1024 ? (
+				<Column>
+					{articles.map(article => (
+						<Article isDescriptionShown={true} key={article.id} {...article} />
+					))}
+				</Column>
+			) : (
+				<>
+					<AnimateSharedLayout>
 						<Column>
-							{articles.map(article => (
-								<Article
-									isDescriptionShown={true}
-									key={article.id}
-									{...article}
-								/>
-							))}
+							{articles
+								.filter((_, i) => i % 2 === 0)
+								.map(article => (
+									<Article key={article.id} {...article} />
+								))}
 						</Column>
-					) : (
-						<>
-							<Column>
-								{articles
-									.filter((_, i) => i % 2 === 0)
-									.map(article => (
-										<Article key={article.id} {...article} />
-									))}
-							</Column>
-							<Column>
-								{articles
-									.filter((_, i) => i % 2 !== 0)
-									.map(article => (
-										<Article key={article.id} {...article} />
-									))}
-							</Column>
-						</>
-					)}
-				</AnimatePresence>
-			</AnimateSharedLayout>
+						<Column>
+							{articles
+								.filter((_, i) => i % 2 !== 0)
+								.map(article => (
+									<Article key={article.id} {...article} />
+								))}
+						</Column>
+					</AnimateSharedLayout>
+				</>
+			)}
 		</Container>
 	);
 };
