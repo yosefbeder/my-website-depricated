@@ -112,7 +112,7 @@ const Article: React.FC<ArticleType & { isDescriptionShown?: boolean }> = ({
 			</Typography>
 
 			<Footer as={motion.div} layout>
-				<NextLink href={`/articles/${id}`} passHref>
+				<NextLink href={`/articles/${id}`} passHref scroll={false}>
 					<StyledButtonPrimary as="a">Read</StyledButtonPrimary>
 				</NextLink>
 				<P2>
