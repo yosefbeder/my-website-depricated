@@ -23,17 +23,12 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
 	const [filteredArticles, setFilteredArticles] = useState<ArticleType[]>();
 
 	useEffect(() => {
-		// filtering
-		const tags = query.tags;
-
 		let result = articles;
 
-		if (tags) {
-			const tagsArr = (tags as string).split(',');
+		if (query.tag) {
+			const tag = (query.tag as string).split(',')[0];
 
-			tagsArr.forEach(tag => {
-				result = result.filter(article => article.tags.includes(tag));
-			});
+			result = result.filter(article => article.tags.includes(tag));
 		}
 
 		setFilteredArticles(result);

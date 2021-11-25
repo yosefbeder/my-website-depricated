@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import breakPoints from '../constants/break-points';
 import { ArticleType } from '../types';
 import Article from './Article';
-import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
+import { AnimateSharedLayout, motion } from 'framer-motion';
 import useViewPortWidth from '../hooks/useViewPortWidth';
 
 import { mainSharedStyles, routeTransitions } from '../pages/_app';
