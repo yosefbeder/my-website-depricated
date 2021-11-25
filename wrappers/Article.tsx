@@ -84,7 +84,7 @@ const Article: React.FC<ArticleType> = ({
 				</TagsContainer>
 				<P2>{description}</P2>
 				<P2>
-					☕ {timeToRead} minute{timeToRead === 1 ? '' : 's'} - 📅{' '}
+					⌚ {timeToRead} minute{timeToRead === 1 ? '' : 's'} - 📅{' '}
 					{new Intl.DateTimeFormat('en', {
 						month: 'short',
 						day: 'numeric',

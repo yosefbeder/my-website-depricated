@@ -116,7 +116,7 @@ const Article: React.FC<ArticleType & { isDescriptionShown?: boolean }> = ({
 					<StyledButtonPrimary as="a">Read</StyledButtonPrimary>
 				</NextLink>
 				<P2>
-					☕ {timeToRead} minute{timeToRead === 1 ? '' : 's'} - 📅{' '}
+					⌚ {timeToRead} minute{timeToRead === 1 ? '' : 's'} - 📅{' '}
 					{new Intl.DateTimeFormat('en', {
 						month: 'short',
 						day: 'numeric',
