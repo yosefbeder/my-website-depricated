@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
-import Link from '../components/Link';
 import { ArticleType } from '../types';
-import TypographyMain from '../components/TypographyMain';
+// import TypographyMain from '../components/TypographyMain';
 import Head from 'next/head';
-import imagesBase64 from '../public/images-base64.json';
+import NextLink from 'next/link';
 
 import hljs from 'highlight.js/lib/core';
 import ts from 'highlight.js/lib/languages/typescript';
@@ -20,31 +18,20 @@ hljs.registerLanguage('json', json);
 import 'highlight.js/styles/atom-one-dark.css';
 import { MDXProvider } from '@mdx-js/react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import { mainSharedStyles, routeTransitions } from '../pages/_app';
+import components from '../constants/components';
+import useAutoScrolling from '../hooks/useAutoScrolling';
+import { H1, P2 } from '@yosefbeder/design-system/typography';
+import { Tag, TagsContainer } from '../components/Article';
 
-const Header = styled.header`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
-	margin-bottom: var(--space-2xl);
-
-	& > h1 {
-		// to remove the default tag style & add some spacing to the image
-		margin: 0;
-		margin-top: var(--space-lg);
-	}
-
-	& > *:not(:last-child) {
-		margin-bottom: var(--space-lg);
-	}
+const ArticleMain = styled(motion.main)`
+	${mainSharedStyles}
+	padding-top: 0.005px;
 `;
 
-const TagsContainer = styled.div`
-	display: flex;
-
-	& > *:not(:last-child) {
-		margin-right: var(--space-lg);
-	}
+const Title = styled(H1)`
+	margin-bottom: var(--space-md);
 `;
 
 const Article: React.FC<ArticleType> = ({
@@ -56,8 +43,9 @@ const Article: React.FC<ArticleType> = ({
 	children,
 }) => {
 	const [timeToRead, setTimeToRead] = useState(0);
-	const wrapperRef = useRef<HTMLDivElement>(null);
-	const [isLoaded, setIsLoaded] = useState(false);
+	const mainRef = useRef<HTMLDivElement>(null);
+
+	useAutoScrolling(mainRef);
 
 	useEffect(() => {
 		// highlight code
@@ -65,53 +53,47 @@ const Article: React.FC<ArticleType> = ({
 
 		// setting reading time
 		setTimeToRead(
-			Math.round(wrapperRef.current!.innerText.split(' ').length / 200),
+			Math.round(mainRef.current!.innerText.split(' ').length / 200),
 		);
 	}, []);
 
 	return (
-		<TypographyMain>
+		<>
 			<Head>
 				<title>Articles &gt; {title}</title>
 				<meta name="description" content={description} />
 			</Head>
-			<Header>
-				<Image
-					src={`/images/${id}.png`}
-					placeholder="blur"
-					blurDataURL={imagesBase64[id as keyof typeof imagesBase64]}
-					alt={title}
-					width={704}
-					height={396}
-					objectFit="cover"
-					className={`img ${isLoaded ? 'img--loaded' : ''}`}
-					onLoadingComplete={() => setIsLoaded(true)}
-				/>
-
-				<h1>{title}</h1>
-				<TagsContainer>
+			<ArticleMain
+				ref={mainRef}
+				variants={routeTransitions}
+				initial="hidden"
+				animate="enter"
+				exit="exit"
+			>
+				<Title>{title}</Title>
+				<TagsContainer as={motion.div} layout>
 					{tags.map(tag => (
-						<Link key={tag} href={`/articles?tags=${tag}`} target="_self">
-							{tag}
-						</Link>
+						<NextLink
+							key={tag}
+							href={`/articles?tag=${tag}`}
+							scroll={false}
+							passHref
+						>
+							<Tag>{tag}</Tag>
+						</NextLink>
 					))}
 				</TagsContainer>
-				<p>
-					<i>{description}</i>
-				</p>
-				<small>
+				<P2>{description}</P2>
+				<P2>
+					☕ {timeToRead} minute{timeToRead === 1 ? '' : 's'} - 📅{' '}
 					{new Intl.DateTimeFormat('en', {
-						year: 'numeric',
-						month: 'long',
+						month: 'short',
 						day: 'numeric',
-					}).format(new Date(date))}{' '}
-					- {timeToRead} minute{timeToRead !== 1 && 's'}
-				</small>
-			</Header>
-			<article ref={wrapperRef}>
-				<MDXProvider components={{ a: Link }}>{children}</MDXProvider>
-			</article>
-		</TypographyMain>
+					}).format(new Date(date))}
+				</P2>
+				<MDXProvider components={components}>{children}</MDXProvider>
+			</ArticleMain>
+		</>
 	);
 };
 

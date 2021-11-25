@@ -4,6 +4,7 @@ export interface ArticleType {
 	tags: string[];
 	description: string;
 	date: string;
+	timeToRead: number;
 }
 
 export interface FullArticleType extends ArticleType {

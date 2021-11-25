@@ -8,8 +8,10 @@ import {
 } from 'react-icons/fa';
 import { FiCodesandbox as CodeSandbox } from 'react-icons/fi';
 import userData from '../public/user-data.json';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import breakPoints from '../constants/break-points';
+import { H3, P1, P2 } from '@yosefbeder/design-system/typography';
+import { NavLink } from '@yosefbeder/design-system/components';
 
 const routes = [
 	{ href: '/', name: 'Home' },
@@ -17,40 +19,20 @@ const routes = [
 ];
 
 const Container = styled.aside`
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
+	--gap: var(--space-lg);
 
-	padding: var(--space-lg);
+	padding: var(--gap);
 	border-bottom: 1px solid var(--color-gray-200);
 
-	& > *:not(:last-child) {
-		margin-bottom: var(--space-2xl);
-	}
-
 	@media (min-width: ${breakPoints.sm}px) {
-		flex: 0 0 16.5rem;
+		flex: 0 0 20rem;
 		border-bottom: 0;
 		border-right: 1px solid var(--color-gray-200);
 		align-self: flex-start;
 	}
 
-	@media (min-width: ${breakPoints.md}px) {
-		flex: 0 0 20rem;
-	}
-`;
-
-const PersonalInfo = styled.section`
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-
-	& > * {
-		margin: 0;
-	}
-
-	& > *:not(:last-child) {
-		margin-bottom: var(--space-lg);
+	& ${H3},& ${P1},& ${P2} {
+		margin: var(--gap) 0;
 	}
 `;
 
@@ -58,61 +40,29 @@ const Avatar = styled(Image)`
 	border-radius: var(--rounded-full);
 `;
 
-const Name = styled.h3`
-	margin-top: var(--space-lg);
-`;
-
 const Nav = styled.nav`
-	display: flex;
+	margin: var(--gap) 0;
 
-	& > *:not(:last-child) {
-		margin-right: var(--space-lg);
+	& > ${NavLink} {
+		display: inline-block;
 	}
 
-	@media (min-width: ${breakPoints.sm}px) {
-		flex-direction: column;
-
-		& > *:not(:last-child) {
-			margin: 0;
-			margin-bottom: var(--space-lg);
-		}
+	& > ${NavLink}:not(:last-child) {
+		margin-right: var(--gap);
 	}
 `;
 
 const ContactInfo = styled.div`
-	display: flex;
+	--color-github: #333;
+	--color-linkedIn: #0077b5;
+	--color-codeSandbox: #242424;
+	--color-mail: #ea4335;
+
+	margin: var(--gap) 0;
 
 	& > *:not(:last-child) {
-		margin-right: var(--space-lg);
+		margin-right: var(--gap);
 	}
-`;
-
-const NavLink = styled.a<{ isSelected?: boolean }>`
-	font-size: var(--text-md);
-	color: var(--color-gray-500);
-	transition: color 100ms;
-
-	&:hover {
-		color: var(--color-gray-700);
-	}
-
-	&:active {
-		color: var(--color-blue-600);
-	}
-
-	${props =>
-		props.isSelected
-			? css`
-					&,
-					&:hover {
-						color: var(--color-blue-600);
-					}
-			  `
-			: ''}
-`;
-
-const Copyright = styled.small`
-	align-self: center;
 `;
 
 const ContactCard = styled.a<{
@@ -146,21 +96,21 @@ const Sidebar = () => {
 
 	return (
 		<Container>
-			<PersonalInfo>
+			<section>
 				<Avatar
 					src={avatarUrl}
 					alt="My Personal Image"
 					width={100}
 					height={100}
 				/>
-				<Name>{name}</Name>
-				<p>{bio}</p>
-			</PersonalInfo>
+				<H3>{name}</H3>
+				<P1>{bio}</P1>
+			</section>
 			<Nav>
-				{routes.map(({ href, name }, index) => (
-					<Link key={index} href={href} scroll={false} passHref>
+				{routes.map(({ href, name }) => (
+					<Link key={href} href={href} scroll={false} passHref>
 						<NavLink
-							isSelected={
+							isNavigatedTo={
 								href.length === 1 ? route === href : route.startsWith(href)
 							}
 						>
@@ -191,7 +141,7 @@ const Sidebar = () => {
 					</ContactCard>
 				</Link>
 			</ContactInfo>
-			<Copyright>© Yosef Beder 2021</Copyright>
+			<P2>© All rights reserved</P2>
 		</Container>
 	);
 };

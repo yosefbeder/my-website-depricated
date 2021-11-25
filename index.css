@@ -1,0 +1,19 @@
+html {
+	scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+	width: 0;
+}
+
+pre {
+	white-space: pre;
+}
+
+pre > code {
+	border-radius: var(--rounded-sm);
+	font-family: var(--font-monospace);
+	font-size: var(--font-sm);
+	line-height: 1.5;
+	margin: var(--space-md) 0;
+}

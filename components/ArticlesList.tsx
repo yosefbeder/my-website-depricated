@@ -1,42 +1,44 @@
-import { ArticleType } from '../types';
-import Article from './Article';
-import { AnimatePresence, AnimateSharedLayout } from 'framer-motion';
-import useViewPortWidth from '../hooks/useViewPortWidth';
+import { useRef } from 'react';
 import styled from 'styled-components';
 import breakPoints from '../constants/break-points';
+import { ArticleType } from '../types';
+import Article from './Article';
+import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
+import useViewPortWidth from '../hooks/useViewPortWidth';
 
-const ColumnContainer = styled.div`
+import { mainSharedStyles, routeTransitions } from '../pages/_app';
+import useAutoScrolling from '../hooks/useAutoScrolling';
+
+const Container = styled(motion.main)`
+	--gap: var(--space-lg);
+
 	display: flex;
-	width: max-content;
-	margin: 0 auto;
+	flex-direction: column;
 
-	& > *:not(:last-child) {
-		margin-right: var(--space-xl);
+	${mainSharedStyles}
+
+	@media (min-width: ${breakPoints.lg}px) {
+		flex-direction: row;
+		justify-content: space-between;
 	}
 `;
 
 const Column = styled.div`
-	--sm: 20rem;
-	--md: 22rem;
-	--lg: 24rem;
+	flex: 1;
 
 	display: flex;
 	flex-direction: column;
-	width: var(--md);
-	padding: var(--space-xl) 0;
-	margin: 0 auto;
 
-	& > *:not(:last-child) {
-		margin-bottom: var(--space-xl);
+	&:not(:last-child) {
+		margin-right: var(--gap);
 	}
 
-	@media (min-width: ${breakPoints.md}px) {
-		width: var(--lg);
+	& > *:not(last-child) {
+		margin-bottom: var(--gap);
 	}
 
 	@media (min-width: ${breakPoints.lg}px) {
-		margin: 0;
-		width: var(--sm);
+		flex: 0.5;
 	}
 `;
 
@@ -46,36 +48,51 @@ interface ArticlesListProps {
 
 const ArticlesList: React.FC<ArticlesListProps> = ({ articles }) => {
 	const viewPortWidth = useViewPortWidth();
+	const mainRef = useRef<HTMLDivElement>(null);
+
+	useAutoScrolling(mainRef);
 
 	return (
-		<AnimateSharedLayout>
-			<AnimatePresence>
-				{viewPortWidth < 1024 ? (
-					<Column>
-						{articles.map(article => (
-							<Article key={article.id} {...article} />
-						))}
-					</Column>
-				) : (
-					<ColumnContainer>
+		<Container
+			variants={routeTransitions}
+			initial="hidden"
+			animate="enter"
+			exit="exit"
+			ref={mainRef}
+		>
+			<AnimateSharedLayout>
+				<AnimatePresence>
+					{viewPortWidth < 1024 ? (
 						<Column>
-							{articles
-								.filter((_, i) => i % 2 === 0)
-								.map(article => (
-									<Article key={article.id} {...article} />
-								))}
+							{articles.map(article => (
+								<Article
+									isDescriptionShown={true}
+									key={article.id}
+									{...article}
+								/>
+							))}
 						</Column>
-						<Column>
-							{articles
-								.filter((_, i) => i % 2 !== 0)
-								.map(article => (
-									<Article key={article.id} {...article} />
-								))}
-						</Column>
-					</ColumnContainer>
-				)}
-			</AnimatePresence>
-		</AnimateSharedLayout>
+					) : (
+						<>
+							<Column>
+								{articles
+									.filter((_, i) => i % 2 === 0)
+									.map(article => (
+										<Article key={article.id} {...article} />
+									))}
+							</Column>
+							<Column>
+								{articles
+									.filter((_, i) => i % 2 !== 0)
+									.map(article => (
+										<Article key={article.id} {...article} />
+									))}
+							</Column>
+						</>
+					)}
+				</AnimatePresence>
+			</AnimateSharedLayout>
+		</Container>
 	);
 };
 

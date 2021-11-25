@@ -1,130 +1,105 @@
 import { useEffect, useState } from 'react';
-import Link from '../components/Link';
-import NextImage from 'next/image';
+import NextLink from 'next/link';
 import { ArticleType } from '../types';
 import { motion } from 'framer-motion';
-import imagesBase64 from '../public/images-base64.json';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { StyledButtonPrimary } from '@yosefbeder/design-system/components/Button';
+import { H3, P1, P2, Link } from '@yosefbeder/design-system/typography';
 
 const variants = {
 	hidden: { opacity: 0 },
 	visible: { opacity: 1 },
 };
 
-const Container = styled(motion.div)`
-	height: max-content;
-	border-radius: var(--rounded-md);
-	box-shadow: var(--shadow-lg) var(--color-gray-200);
+const Container = styled.article`
+	--padding: var(--space-lg);
+
+	border-radius: var(--rounded-sm);
+	box-shadow: var(--shadow-lg);
 	background-color: var(--color-white);
 
 	overflow: hidden;
 `;
 
-const Image = styled(NextImage)<{ isLoaded?: boolean }>`
-	filter: blur(${props => (props.isLoaded ? '0' : '1.5rem')});
-
-	transition: filter 250ms;
-`;
-
-const Content = styled(motion.div)`
-	padding: var(--space-lg);
-
-	& > * {
-		margin: 0;
-	}
-
-	& > h3 {
-		margin-bottom: var(--space-md);
-	}
-
-	& > p {
-		color: var(--color-gray-600);
-
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
+export const Tag = styled(Link)`
+	&:before {
+		content: '#';
 	}
 `;
 
-const TagsContainer = styled(motion.div)`
+export const TagsContainer = styled.div`
 	display: flex;
-	margin-bottom: var(--space-lg);
 
-	& > *:not(:last-child) {
+	& > ${Tag}:not(:last-child) {
 		margin-right: var(--space-md);
 	}
 `;
 
-const Footer = styled(motion.div)`
+interface TypographyProps {
+	isDescriptionShown?: boolean;
+}
+
+const Typography = styled.div<TypographyProps>`
+	padding: var(--padding);
+
+	& > ${H3}, & > ${P1} {
+		margin: 0;
+	}
+
+	& > ${H3} {
+		margin-bottom: var(--space-md);
+	}
+
+	${props =>
+		props.isDescriptionShown &&
+		css`
+			& > ${TagsContainer} {
+				margin-bottom: var(--space-md);
+			}
+		`}
+`;
+
+const Footer = styled.div`
 	display: flex;
-	align-items: center;
 	justify-content: space-between;
-	padding: var(--space-lg);
+	padding: var(--padding);
 	background-color: var(--color-gray-50);
 `;
 
-const Article: React.FC<ArticleType> = ({
+const Article: React.FC<ArticleType & { isDescriptionShown?: boolean }> = ({
 	id,
 	title,
 	tags,
 	description,
 	date,
+	timeToRead,
+	isDescriptionShown,
 }) => {
 	const [mouseIn, setMouseIn] = useState(false);
-	const [isLoaded, setIsLoaded] = useState(false);
-	const [isMobile, setIsMobile] = useState(false);
-
-	useEffect(() => {
-		if (
-			/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-				navigator.userAgent,
-			)
-		) {
-			setIsMobile(true);
-		}
-	}, []);
 
 	return (
 		<Container
+			as={motion.div}
 			layout
 			onMouseEnter={() => setMouseIn(true)}
 			onMouseLeave={() => setMouseIn(false)}
 		>
-			<motion.div layout>
-				<Image
-					isLoaded={isLoaded}
-					src={`/images/${id}.png`}
-					placeholder="blur"
-					blurDataURL={imagesBase64[id as keyof typeof imagesBase64]}
-					onLoadingComplete={() => setIsLoaded(true)}
-					objectFit="cover"
-					alt={title}
-					width={384}
-					height={256}
-				/>
-			</motion.div>
-			<Content layout>
-				{(mouseIn || isMobile) && (
-					<TagsContainer
-						layout
-						variants={variants}
-						initial="hidden"
-						animate="visible"
-						exit="hidden"
-					>
-						{tags.map(tag => (
-							<Link key={tag} href={`/articles?tags=${tag}`} target="_self">
-								{tag}
-							</Link>
-						))}
-					</TagsContainer>
-				)}
+			<Typography isDescriptionShown={isDescriptionShown || mouseIn}>
+				<H3 as={motion.h3} layout>
+					{title}
+				</H3>
 
-				<motion.h3 layout>{title}</motion.h3>
+				<TagsContainer as={motion.div} layout>
+					{tags.map(tag => (
+						<NextLink key={tag} href={`/articles?tag=${tag}`} passHref>
+							<Tag>{tag}</Tag>
+						</NextLink>
+					))}
+				</TagsContainer>
 
-				{(mouseIn || isMobile) && (
-					<motion.p
+				{(isDescriptionShown || mouseIn) && (
+					<P1
+						as={motion.p}
 						layout
 						variants={variants}
 						initial="hidden"
@@ -132,20 +107,21 @@ const Article: React.FC<ArticleType> = ({
 						exit="hidden"
 					>
 						{description}
-					</motion.p>
+					</P1>
 				)}
-			</Content>
-			<Footer layout>
-				<Link variant="btn" href={`/articles/${id}`} target="_self">
-					Continue Reading
-				</Link>
-				<small>
+			</Typography>
+
+			<Footer as={motion.div} layout>
+				<NextLink href={`/articles/${id}`} passHref>
+					<StyledButtonPrimary as="a">Read</StyledButtonPrimary>
+				</NextLink>
+				<P2>
+					☕ {timeToRead} minute{timeToRead === 1 ? '' : 's'} - 📅{' '}
 					{new Intl.DateTimeFormat('en', {
-						year: 'numeric',
 						month: 'short',
 						day: 'numeric',
 					}).format(new Date(date))}
-				</small>
+				</P2>
 			</Footer>
 		</Container>
 	);

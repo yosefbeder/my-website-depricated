@@ -16,7 +16,17 @@ const getAllArticles = async (): Promise<ArticleType[]> => {
 		if (dirrent.name !== 'index.tsx') {
 			const { metaData } = await import(`../pages/articles/${dirrent.name}`);
 
-			articles.push(metaData);
+			const content = await fs.readFile(
+				path.join(process.cwd(), `pages/articles/${dirrent.name}`),
+				'utf-8',
+			);
+
+			const timeToRead = Math.round(
+				content.slice(content.indexOf('\n##')).split(' ').length / 200,
+			);
+			const id = dirrent.name.slice(0, dirrent.name.lastIndexOf('.'));
+
+			articles.push({ id, timeToRead, ...metaData });
 		}
 	}
 
