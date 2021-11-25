@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArticleType } from '../types';
-// import TypographyMain from '../components/TypographyMain';
 import Head from 'next/head';
 import NextLink from 'next/link';
 

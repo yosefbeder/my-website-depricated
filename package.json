@@ -4,10 +4,9 @@
 	"private": true,
 	"scripts": {
 		"build:data": "node ./scripts/generate-user-data.mjs",
-		"build:placeholder-images": "node ./scripts/generate-placeholder-images.js",
-		"predev": "npm run build:data && npm run build:placeholder-images",
+		"predev": "yarn build:data",
 		"dev": "next dev",
-		"prebuild": "npm run build:data && npm run build:placeholder-images",
+		"prebuild": "yarn build:data",
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint"
