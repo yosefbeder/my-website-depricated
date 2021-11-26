@@ -19,8 +19,8 @@ export const getStaticProps: GetStaticProps<ArticlesProps> = async () => {
 };
 
 const Articles: NextPage<ArticlesProps> = ({ articles }) => {
-	const { query, isReady } = useRouter();
-	const [filteredArticles, setFilteredArticles] = useState<ArticleType[]>();
+	const { query } = useRouter();
+	const [filteredArticles, setFilteredArticles] = useState<ArticleType[]>([]);
 
 	useEffect(() => {
 		let result = articles;
@@ -32,14 +32,7 @@ const Articles: NextPage<ArticlesProps> = ({ articles }) => {
 		}
 
 		setFilteredArticles(result);
-	}, [query]);
-
-	if (!isReady || !filteredArticles)
-		return (
-			<Head>
-				<title>Articles</title>
-			</Head>
-		);
+	}, [query, articles]);
 
 	return (
 		<>

@@ -32,6 +32,7 @@ export const mainSharedStyles = css`
 	@media (min-width: ${breakPoints.sm}px) {
 		overflow-y: scroll;
 		scrollbar-width: none;
+		scroll-behavior: smooth;
 
 		&::-webkit-scrollbar {
 			width: 0;
