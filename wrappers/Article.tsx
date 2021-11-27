@@ -27,6 +27,7 @@ import { useAppDispatch } from '../hooks/react-redux';
 import { Action } from '../store/toc';
 import { convertToSlug } from '@yosefbeder/design-system/utils/with-id';
 import useScrollTop from '../hooks/useScrollTop';
+import useViewPortWidth from '../hooks/useViewPortWidth';
 
 const ArticleMain = styled(motion.main)`
 	${mainSharedStyles}
@@ -38,7 +39,6 @@ const Title = styled(H1)`
 `;
 
 const Article: React.FC<ArticleType & { children: any[] }> = ({
-	id,
 	title,
 	description,
 	date,
@@ -66,6 +66,7 @@ const Article: React.FC<ArticleType & { children: any[] }> = ({
 	const _headers = useRef<{ id: string; scrollTop: number }[]>([]);
 	const _activeHeader = useRef('');
 	const scrollTop = useScrollTop(mainRef);
+	const viewPortWidth = useViewPortWidth();
 
 	useEffect(() => {
 		const headers = children
@@ -120,6 +121,16 @@ const Article: React.FC<ArticleType & { children: any[] }> = ({
 			}
 		}
 	}, [scrollTop, dispatch]);
+
+	useEffect(() => {
+		_headers.current = _headers.current.map(({ id }) => ({
+			id,
+			scrollTop: Math.trunc(
+				document.getElementById(id)!.getBoundingClientRect().top +
+					mainRef.current!.scrollTop,
+			),
+		}));
+	}, [viewPortWidth]);
 
 	return (
 		<>
