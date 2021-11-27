@@ -16,6 +16,7 @@ import { NavLink } from '@yosefbeder/design-system/components';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 import { fade } from '../constants/variants';
 import { useAppSelector } from '../hooks/react-redux';
+import useViewPortWidth from '../hooks/useViewPortWidth';
 
 const routes = [
 	{ href: '/', name: 'Home' },
@@ -29,10 +30,14 @@ const Container = styled(motion.aside)`
 	border-bottom: 1px solid var(--color-gray-200);
 
 	@media (min-width: ${breakPoints.sm}px) {
-		flex: 0 0 20rem;
+		flex: 0 0 16.5rem;
 		border-bottom: 0;
 		border-right: 1px solid var(--color-gray-200);
 		align-self: flex-start;
+	}
+
+	@media (min-width: ${breakPoints.md}px) {
+		flex: 0 0 20rem;
 	}
 
 	& ${H3},& ${P1},& ${P2} {
@@ -101,8 +106,13 @@ const TOC = styled(motion.section)`
 const Sidebar = () => {
 	const { route } = useRouter();
 	const tocState = useAppSelector(state => state.toc);
+	const viewPortWidth = useViewPortWidth();
 
-	const state = tocState ? (tocState.activeHeader ? 'toc' : 'info') : 'info';
+	const state = tocState
+		? tocState.activeHeader && !(viewPortWidth < breakPoints.sm)
+			? 'toc'
+			: 'info'
+		: 'info';
 
 	const {
 		name,
