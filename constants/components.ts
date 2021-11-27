@@ -21,7 +21,7 @@ const components: MDXProviderComponents = {
 	h1: H1,
 	h2: withId(H2),
 	h3: withId(H3),
-	h4: H4,
+	h4: withId(H4),
 	h5: H5,
 	h6: H6,
 	p: P1,

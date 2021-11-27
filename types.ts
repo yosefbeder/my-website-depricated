@@ -10,7 +10,14 @@ export interface ArticleType {
 export interface FullArticleType extends ArticleType {
 	markdown: string;
 }
+
 export interface ErrorType {
 	status: number;
 	message: string;
+}
+
+export interface HeaderType {
+	id: string;
+	depth: number;
+	content: string;
 }

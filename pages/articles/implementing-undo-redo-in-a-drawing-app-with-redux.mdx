@@ -82,7 +82,7 @@ As I said the implementation of this startegy will be different so I will tell y
 
 ### Pushes to the history stack
 
-#### 1. When `present` is `null`
+When `present` is `null`:
 
 1. Update `present`.
 
@@ -101,7 +101,7 @@ return {
 };
 ```
 
-#### 2. When `present` isn't `null`
+When `present` isn't `null`:
 
 1. Push the last `present` to `past`.
 
@@ -125,7 +125,7 @@ return {
 
 ### Undo
 
-#### 1. When `past` is empty
+When `past` is empty:
 
 1. Insert `present` to `future`.
 
@@ -143,7 +143,7 @@ return {
 };
 ```
 
-#### 2. When `past` isn't empty
+When `past` isn't empty:
 
 1. Remove the last item from `past`.
 
@@ -167,7 +167,7 @@ return {
 
 ### Redo
 
-#### 1. When `present` is `null`
+When `present` is `null`:
 
 1. Remove the first item from `future`.
 
@@ -186,7 +186,7 @@ return {
 };
 ```
 
-#### 2. When `present` isn't `null`
+When `present` isn't `null`:
 
 1. Remove the first item from `future`.
 

@@ -5,11 +5,7 @@ import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 import { StyledButtonPrimary } from '@yosefbeder/design-system/components/Button';
 import { H3, P1, P2, Link } from '@yosefbeder/design-system/typography';
-
-const variants = {
-	hidden: { opacity: 0 },
-	visible: { opacity: 1 },
-};
+import { fade } from '../constants/variants';
 
 const Container = styled.article`
 	--padding: var(--space-lg);
@@ -101,7 +97,7 @@ const Article: React.FC<ArticleType & { isDescriptionShown?: boolean }> = ({
 					<P1
 						as={motion.p}
 						layout
-						variants={variants}
+						variants={fade}
 						initial="hidden"
 						animate="visible"
 						exit="hidden"

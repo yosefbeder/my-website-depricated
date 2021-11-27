@@ -7,8 +7,6 @@ const useAutoScrolling = (mainRef: React.RefObject<HTMLDivElement>) => {
 		const viewPortWidth = window.innerWidth;
 
 		if (viewPortWidth >= breakPoints.sm) {
-			console.log('scrolling');
-
 			main.scrollTop = 0;
 		} else {
 			document.documentElement.scrollTop = 0;
