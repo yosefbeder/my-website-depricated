@@ -11,7 +11,7 @@ import { FiCodesandbox as CodeSandbox } from 'react-icons/fi';
 import userData from '../public/user-data.json';
 import styled from 'styled-components';
 import breakPoints from '../constants/break-points';
-import { H3, P1, P2, Link as A } from '@yosefbeder/design-system/typography';
+import { H3, P1, P2 } from '@yosefbeder/design-system/typography';
 import { NavLink } from '@yosefbeder/design-system/components';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 import { fade } from '../constants/variants';

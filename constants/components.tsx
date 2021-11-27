@@ -25,7 +25,11 @@ const components: MDXProviderComponents = {
 	h5: H5,
 	h6: H6,
 	p: P1,
-	a: Link,
+	a: ({ children, href }) => (
+		<Link href={href} target={href.startsWith('#') ? '_self' : '_blank'}>
+			{children}
+		</Link>
+	),
 	em: Italic,
 	strong: Strong,
 	ol: Ol,
