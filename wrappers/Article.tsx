@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { ArticleType, HeaderType } from '../types';
 import Head from 'next/head';
 import NextLink from 'next/link';
+import { H1, H2, H3, H4, P2 } from '@yosefbeder/design-system/typography';
+import { withId } from '@yosefbeder/design-system/utils';
 
 import hljs from 'highlight.js/lib/core';
 import ts from 'highlight.js/lib/languages/typescript';
@@ -19,9 +21,8 @@ import { MDXProvider } from '@mdx-js/react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { mainSharedStyles, routeTransitions } from '../pages/_app';
-import components from '../constants/components';
+import sharedComponents from '../constants/shared-components';
 import useAutoScrolling from '../hooks/useAutoScrolling';
-import { H1, P2 } from '@yosefbeder/design-system/typography';
 import { Tag, TagsContainer } from '../components/Article';
 import { useAppDispatch } from '../hooks/react-redux';
 import { Action } from '../store/toc';
@@ -175,7 +176,16 @@ const Article: React.FC<ArticleType & { children: any[] }> = ({
 						day: 'numeric',
 					}).format(new Date(date))}
 				</P2>
-				<MDXProvider components={components}>{children}</MDXProvider>
+				<MDXProvider
+					components={{
+						...sharedComponents,
+						h2: withId(H2),
+						h3: withId(H3),
+						h4: withId(H4),
+					}}
+				>
+					{children}
+				</MDXProvider>
 			</ArticleMain>
 		</>
 	);

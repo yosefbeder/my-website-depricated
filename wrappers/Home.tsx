@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import Head from 'next/head';
 import { MDXProvider } from '@mdx-js/react';
-import components from '../constants/components';
+import components from '../constants/shared-components';
 import styled from 'styled-components';
 import useAutoScrolling from '../hooks/useAutoScrolling';
 import { mainSharedStyles, routeTransitions } from '../pages/_app';

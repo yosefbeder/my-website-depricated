@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"@mdx-js/react": "^1.6.22",
-		"@yosefbeder/design-system": "^0.3.0",
+		"@yosefbeder/design-system": "^0.4.2",
 		"framer-motion": "^4.1.17",
 		"highlight.js": "^11.2.0",
 		"next": "12",
