@@ -21,7 +21,7 @@ import { MDXProvider } from '@mdx-js/react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { mainSharedStyles, routeTransitions } from '../pages/_app';
-import sharedComponents from '../constants/shared-components';
+import components from '../constants/components';
 import useAutoScrolling from '../hooks/useAutoScrolling';
 import { Tag, TagsContainer } from '../components/Article';
 import { useAppDispatch } from '../hooks/react-redux';
@@ -176,16 +176,7 @@ const Article: React.FC<ArticleType & { children: any[] }> = ({
 						day: 'numeric',
 					}).format(new Date(date))}
 				</P2>
-				<MDXProvider
-					components={{
-						...sharedComponents,
-						h2: withId(H2),
-						h3: withId(H3),
-						h4: withId(H4),
-					}}
-				>
-					{children}
-				</MDXProvider>
+				<MDXProvider components={components}>{children}</MDXProvider>
 			</ArticleMain>
 		</>
 	);
