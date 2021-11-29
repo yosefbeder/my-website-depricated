@@ -17,6 +17,7 @@ import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 import { fade } from '../constants/variants';
 import { useAppSelector } from '../hooks/react-redux';
 import useViewPortWidth from '../hooks/useViewPortWidth';
+import TableOfContent from './TableOfContent';
 
 const routes = [
 	{ href: '/', name: 'Home' },
@@ -90,26 +91,13 @@ const ContactCard = styled.a<{
 	}
 `;
 
-const Header = styled(NavLink)<{ depth: number }>`
-	display: block;
-	margin-left: calc(${props => props.depth - 2} * var(--space-lg));
-	font-size: var(--font-sm);
-`;
-
-const TOC = styled(motion.section)`
-	border: 1px solid var(--color-gray-200);
-	padding: var(--space-sm);
-	border-radius: var(--rounded-sm);
-	margin: var(--gap) 0;
-`;
-
 const Sidebar = () => {
 	const { route } = useRouter();
-	const tocState = useAppSelector(state => state.toc);
+	const toc = useAppSelector(state => state.toc);
 	const viewPortWidth = useViewPortWidth();
 
-	const state = tocState
-		? tocState.activeHeader && !(viewPortWidth < breakPoints.sm)
+	const state = toc
+		? toc.activeHeader && !(viewPortWidth < breakPoints.sm)
 			? 'toc'
 			: 'info'
 		: 'info';
@@ -165,13 +153,14 @@ const Sidebar = () => {
 						</Link>
 					))}
 				</Nav>
-				<AnimatePresence initial={false}>
+				<AnimatePresence exitBeforeEnter initial={false}>
 					{state === 'info' ? (
 						<ContactInfo
 							variants={fade}
 							initial="hidden"
 							animate="visible"
 							exit="hidden"
+							layout
 						>
 							<Link href={githubUrl} passHref>
 								<ContactCard target="_blank" theme="github">
@@ -195,24 +184,18 @@ const Sidebar = () => {
 							</Link>
 						</ContactInfo>
 					) : (
-						<TOC
+						<motion.section
 							variants={fade}
 							initial="hidden"
 							animate="visible"
 							exit="hidden"
-							transition={{ delay: 0.25 }}
+							layout
 						>
-							{tocState!.headers.map(({ id, depth, content }) => (
-								<Header
-									key={content}
-									depth={depth}
-									href={`#${id}`}
-									isNavigatedTo={id === tocState!.activeHeader}
-								>
-									{content}
-								</Header>
-							))}
-						</TOC>
+							<TableOfContent
+								headers={toc!.headers}
+								activeHeader={toc?.activeHeader}
+							/>
+						</motion.section>
 					)}
 				</AnimatePresence>
 				<P2 as={motion.p} layout>

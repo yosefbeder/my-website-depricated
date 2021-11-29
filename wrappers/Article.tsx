@@ -24,19 +24,23 @@ import { mainSharedStyles, routeTransitions } from '../pages/_app';
 import components from '../constants/components';
 import useAutoScrolling from '../hooks/useAutoScrolling';
 import { Tag, TagsContainer } from '../components/Article';
-import { useAppDispatch } from '../hooks/react-redux';
+import { useAppDispatch, useAppSelector } from '../hooks/react-redux';
 import { Action } from '../store/toc';
 import { convertToSlug } from '@yosefbeder/design-system/utils/with-id';
 import useScrollTop from '../hooks/useScrollTop';
 import useViewPortWidth from '../hooks/useViewPortWidth';
+import breakPoints from '../constants/break-points';
+import TableOfContent from '../components/TableOfContent';
 
 const ArticleMain = styled(motion.main)`
 	${mainSharedStyles}
 	padding-top: 0.005px;
 `;
 
-const Title = styled(H1)`
-	margin-bottom: var(--space-md);
+const Header = styled.header`
+	& > * {
+		margin: var(--space-lg) 0;
+	}
 `;
 
 const Article: React.FC<ArticleType & { children: any[] }> = ({
@@ -64,6 +68,7 @@ const Article: React.FC<ArticleType & { children: any[] }> = ({
 	// Handling table of content
 
 	const dispatch = useAppDispatch();
+	const toc = useAppSelector(props => props.toc);
 	const _headers = useRef<{ id: string; scrollTop: number }[]>([]);
 	const _activeHeader = useRef('');
 	const scrollTop = useScrollTop(mainRef);
@@ -155,27 +160,32 @@ const Article: React.FC<ArticleType & { children: any[] }> = ({
 				animate="enter"
 				exit="exit"
 			>
-				<Title>{title}</Title>
-				<TagsContainer as={motion.div} layout>
-					{tags.map(tag => (
-						<NextLink
-							key={tag}
-							href={`/articles?tag=${tag}`}
-							scroll={false}
-							passHref
-						>
-							<Tag>{tag}</Tag>
-						</NextLink>
-					))}
-				</TagsContainer>
-				<P2>{description}</P2>
-				<P2>
-					⌚ {timeToRead} minute{timeToRead === 1 ? '' : 's'} - 📅{' '}
-					{new Intl.DateTimeFormat('en', {
-						month: 'short',
-						day: 'numeric',
-					}).format(new Date(date))}
-				</P2>
+				<Header>
+					<H1>{title}</H1>
+					<TagsContainer as={motion.div} layout>
+						{tags.map(tag => (
+							<NextLink
+								key={tag}
+								href={`/articles?tag=${tag}`}
+								scroll={false}
+								passHref
+							>
+								<Tag>{tag}</Tag>
+							</NextLink>
+						))}
+					</TagsContainer>
+					<P2>{description}</P2>
+					<P2>
+						⌚ {timeToRead} minute{timeToRead === 1 ? '' : 's'} - 📅{' '}
+						{new Intl.DateTimeFormat('en', {
+							month: 'short',
+							day: 'numeric',
+						}).format(new Date(date))}
+					</P2>
+					{viewPortWidth < breakPoints.sm && toc && (
+						<TableOfContent headers={toc.headers} activeHeader="" />
+					)}
+				</Header>
 				<MDXProvider components={components}>{children}</MDXProvider>
 			</ArticleMain>
 		</>
