@@ -49,18 +49,13 @@ const Article: React.FC<ArticleType & { children: any[] }> = ({
 	date,
 	tags,
 	children,
+	timeToRead,
 }) => {
-	const [timeToRead, setTimeToRead] = useState(0);
 	const mainRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		// highlight code
 		hljs.highlightAll();
-
-		// setting reading time
-		setTimeToRead(
-			Math.round(mainRef.current!.innerText.split(' ').length / 200),
-		);
 	}, []);
 
 	useAutoScrolling(mainRef);
