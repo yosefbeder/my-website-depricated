@@ -29,6 +29,8 @@ const Column = styled.div`
 	display: flex;
 	flex-direction: column;
 
+	height: max-content;
+
 	&:not(:last-child) {
 		margin-right: var(--gap);
 	}
