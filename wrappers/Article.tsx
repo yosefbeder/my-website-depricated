@@ -1,22 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { ArticleType, HeaderType } from '../types';
 import Head from 'next/head';
 import NextLink from 'next/link';
-import { H1, H2, H3, H4, P2 } from '@yosefbeder/design-system/typography';
-import { withId } from '@yosefbeder/design-system/utils';
+import { H1, P2 } from '@yosefbeder/design-system/typography';
 
-import hljs from 'highlight.js/lib/core';
-import ts from 'highlight.js/lib/languages/typescript';
-import js from 'highlight.js/lib/languages/javascript';
-import xml from 'highlight.js/lib/languages/xml';
-import json from 'highlight.js/lib/languages/json';
-
-hljs.registerLanguage('javascript', js);
-hljs.registerLanguage('typescript', ts);
-hljs.registerLanguage('xml', xml);
-hljs.registerLanguage('json', json);
-
-import 'highlight.js/styles/atom-one-dark.css';
 import { MDXProvider } from '@mdx-js/react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -52,11 +39,6 @@ const Article: React.FC<ArticleType & { children: any[] }> = ({
 	timeToRead,
 }) => {
 	const mainRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		// highlight code
-		hljs.highlightAll();
-	}, []);
 
 	useAutoScrolling(mainRef);
 

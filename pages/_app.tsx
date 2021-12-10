@@ -1,5 +1,6 @@
 import '@yosefbeder/design-system/index.css';
 import '../index.css';
+import '../material-dark.css';
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
 import Head from 'next/head';

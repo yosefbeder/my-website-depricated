@@ -48,7 +48,7 @@ It would also be cool If the script runs automatically before running `dev` or `
 
 ### Fetching data
 
-```js
+```jsx
 const getUserData = async () => {
 	const {
 		name,
@@ -97,14 +97,14 @@ Btw, the `email` field is hardcoded because the github API - for some reason - r
 
 Now, you need to untrack the generated file from `.gitignore`.
 
-```
+```git
 # generated data
 public/user-data.json
 ```
 
 ### Reading the data from the component
 
-```js
+```jsx
 import userData from '../public/user-data.json';
 
 const Sidebar = () => {

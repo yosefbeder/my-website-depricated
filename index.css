@@ -9,12 +9,5 @@ html::-webkit-scrollbar {
 
 pre {
 	white-space: pre;
-}
-
-pre > code {
 	border-radius: var(--rounded-sm);
-	font-family: var(--font-monospace);
-	font-size: var(--font-sm);
-	line-height: 1.5;
-	margin: var(--space-md) 0;
 }
