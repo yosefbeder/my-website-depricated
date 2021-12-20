@@ -13,13 +13,13 @@
 	},
 	"dependencies": {
 		"@mdx-js/react": "^1.6.22",
-		"@yosefbeder/design-system": "^0.4.2",
+		"@yosefbeder/design-system": "1.0.0",
 		"framer-motion": "^4.1.17",
 		"next": "12",
 		"next-images": "^1.8.1",
 		"react": "17.0.2",
 		"react-dom": "17.0.2",
-		"react-icons": "^4.2.0",
+		"react-icons": "^4.3.1",
 		"react-redux": "^7.2.6",
 		"redux": "^4.1.2",
 		"styled-components": "^5.3.3"
@@ -27,6 +27,7 @@
 	"devDependencies": {
 		"@mapbox/rehype-prism": "^0.8.0",
 		"@mdx-js/loader": "^1.6.22",
+		"@next/bundle-analyzer": "^12.0.7",
 		"@next/mdx": "^11.1.2",
 		"@types/mdx-js__react": "^1.5.4",
 		"@types/react": "17.0.19",

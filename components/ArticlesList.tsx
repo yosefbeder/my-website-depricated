@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
-import breakPoints from '../constants/break-points';
+import { breakPoints } from '@yosefbeder/design-system/constants';
 import { ArticleType } from '../types';
 import Article from './Article';
 import { AnimateSharedLayout, motion } from 'framer-motion';
@@ -10,7 +10,7 @@ import { mainSharedStyles, routeTransitions } from '../pages/_app';
 import useAutoScrolling from '../hooks/useAutoScrolling';
 
 const Container = styled(motion.main)`
-	--gap: var(--space-lg);
+	--gap: var(--space-4);
 
 	display: flex;
 	flex-direction: column;

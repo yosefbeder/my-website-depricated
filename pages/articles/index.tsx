@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { ArticleType } from '../../types';
 import { GetStaticProps, NextPage } from 'next';
 import ArticlesList from '../../components/ArticlesList';

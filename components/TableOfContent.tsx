@@ -4,14 +4,14 @@ import { HeaderType } from '../types';
 
 const Header = styled(NavLink)<{ depth: number }>`
 	display: block;
-	margin-left: calc(${props => props.depth - 2} * var(--space-lg));
+	margin-left: calc(${props => props.depth - 2} * var(--space-4));
 	font-size: var(--font-sm);
 `;
 
 const Container = styled.div`
 	border: 1px solid var(--color-gray-200);
-	padding: var(--space-sm);
-	border-radius: var(--rounded-sm);
+	padding: var(--space-1);
+	border-radius: var(--rounded);
 	margin: var(--gap) 0;
 `;
 
@@ -31,7 +31,7 @@ const TableOfContent: React.FC<TableOfContentProps> = ({
 					key={content}
 					depth={depth}
 					href={`#${id}`}
-					isNavigatedTo={id === activeHeader}
+					navigatedTo={id === activeHeader}
 				>
 					{content}
 				</Header>

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import breakPoints from '../constants/break-points';
+import { breakPoints } from '@yosefbeder/design-system/constants';
 
 const useAutoScrolling = (mainRef: React.RefObject<HTMLDivElement>) => {
 	useEffect(() => {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import NextLink from 'next/link';
 import { ArticleType } from '../types';
 import { motion } from 'framer-motion';
@@ -8,10 +8,11 @@ import { H3, P1, P2, Link } from '@yosefbeder/design-system/typography';
 import { fade } from '../constants/variants';
 
 const Container = styled.article`
-	--padding: var(--space-lg);
+	--padding: var(--space-4);
 
-	border-radius: var(--rounded-sm);
-	box-shadow: var(--shadow-lg);
+	border-radius: var(--rounded);
+	box-shadow: var(--shadow-sm);
+	border-bottom: 1px solid var(--color-gray-200);
 	background-color: var(--color-white);
 
 	overflow: hidden;
@@ -27,7 +28,7 @@ export const TagsContainer = styled.div`
 	display: flex;
 
 	& > ${Tag}:not(:last-child) {
-		margin-right: var(--space-md);
+		margin-right: var(--space-2);
 	}
 `;
 
@@ -38,19 +39,15 @@ interface TypographyProps {
 const Typography = styled.div<TypographyProps>`
 	padding: var(--padding);
 
-	& > ${H3}, & > ${P1} {
-		margin: 0;
-	}
-
 	& > ${H3} {
-		margin-bottom: var(--space-md);
+		margin-bottom: var(--space-2);
 	}
 
 	${props =>
 		props.isDescriptionShown &&
 		css`
 			& > ${TagsContainer} {
-				margin-bottom: var(--space-md);
+				margin-bottom: var(--space-2);
 			}
 		`}
 `;
@@ -58,8 +55,9 @@ const Typography = styled.div<TypographyProps>`
 const Footer = styled.div`
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	padding: var(--padding);
-	background-color: var(--color-gray-50);
+	background-color: var(--color-${props => props.theme.color.neutral}-50);
 `;
 
 const Article: React.FC<ArticleType & { isDescriptionShown?: boolean }> = ({
@@ -81,7 +79,7 @@ const Article: React.FC<ArticleType & { isDescriptionShown?: boolean }> = ({
 			onMouseLeave={() => setMouseIn(false)}
 		>
 			<Typography isDescriptionShown={isDescriptionShown || mouseIn}>
-				<H3 as={motion.h3} layout>
+				<H3 resetMargin as={motion.h3} layout>
 					{title}
 				</H3>
 
@@ -95,6 +93,7 @@ const Article: React.FC<ArticleType & { isDescriptionShown?: boolean }> = ({
 
 				{(isDescriptionShown || mouseIn) && (
 					<P1
+						resetMargin
 						as={motion.p}
 						layout
 						variants={fade}
@@ -111,7 +110,7 @@ const Article: React.FC<ArticleType & { isDescriptionShown?: boolean }> = ({
 				<NextLink href={`/articles/${id}`} passHref scroll={false}>
 					<StyledButtonPrimary as="a">Read</StyledButtonPrimary>
 				</NextLink>
-				<P2>
+				<P2 resetMargin>
 					⌚ {timeToRead} minute{timeToRead === 1 ? '' : 's'} - 📅{' '}
 					{new Intl.DateTimeFormat('en', {
 						month: 'short',

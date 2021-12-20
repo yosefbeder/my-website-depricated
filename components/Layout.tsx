@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import breakPoints from '../constants/break-points';
+import { breakPoints } from '@yosefbeder/design-system/constants';
 import Sidebar from './Sidebar';
 import { Provider } from 'react-redux';
 import store from '../store';

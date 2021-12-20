@@ -3,7 +3,7 @@ import { ArticleType, HeaderType } from '../types';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import { H1, P2 } from '@yosefbeder/design-system/typography';
-
+import { breakPoints } from '@yosefbeder/design-system/constants';
 import { MDXProvider } from '@mdx-js/react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -16,7 +16,6 @@ import { Action } from '../store/toc';
 import { convertToSlug } from '@yosefbeder/design-system/utils/with-id';
 import useScrollTop from '../hooks/useScrollTop';
 import useViewPortWidth from '../hooks/useViewPortWidth';
-import breakPoints from '../constants/break-points';
 import TableOfContent from '../components/TableOfContent';
 
 const ArticleMain = styled(motion.main)`
@@ -26,7 +25,7 @@ const ArticleMain = styled(motion.main)`
 
 const Header = styled.header`
 	& > * {
-		margin: var(--space-lg) 0;
+		margin: var(--space-2) 0;
 	}
 `;
 

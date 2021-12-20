@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/dist/client/router';
@@ -10,7 +9,7 @@ import {
 import { FiCodesandbox as CodeSandbox } from 'react-icons/fi';
 import userData from '../public/user-data.json';
 import styled from 'styled-components';
-import breakPoints from '../constants/break-points';
+import { breakPoints } from '@yosefbeder/design-system/constants';
 import { H3, P1, P2 } from '@yosefbeder/design-system/typography';
 import { NavLink } from '@yosefbeder/design-system/components';
 import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
@@ -25,7 +24,7 @@ const routes = [
 ];
 
 const Container = styled(motion.aside)`
-	--gap: var(--space-lg);
+	--gap: var(--space-4);
 
 	padding: var(--gap);
 	border-bottom: 1px solid var(--color-gray-200);
@@ -144,7 +143,7 @@ const Sidebar = () => {
 					{routes.map(({ href, name }) => (
 						<Link key={href} href={href} scroll={false} passHref>
 							<NavLink
-								isNavigatedTo={
+								navigatedTo={
 									href.length === 1 ? route === href : route.startsWith(href)
 								}
 							>
