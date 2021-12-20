@@ -75,7 +75,7 @@ const ContactInfo = styled(motion.section)`
 `;
 
 const ContactCard = styled.a<{
-	theme: 'github' | 'linkedIn' | 'codeSandbox' | 'mail';
+	accentColor: 'github' | 'linkedIn' | 'codeSandbox' | 'mail';
 }>`
 	& > svg {
 		color: var(--color-gray-500);
@@ -86,7 +86,7 @@ const ContactCard = styled.a<{
 	}
 
 	&:hover > svg {
-		color: var(--color-${props => props.theme});
+		color: var(--color-${props => props.accentColor});
 	}
 `;
 
@@ -162,22 +162,22 @@ const Sidebar = () => {
 							layout
 						>
 							<Link href={githubUrl} passHref>
-								<ContactCard target="_blank" theme="github">
+								<ContactCard target="_blank" accentColor="github">
 									<GithubIcon />
 								</ContactCard>
 							</Link>
 							<Link href={linkedInUrl} passHref>
-								<ContactCard target="_blank" theme="linkedIn">
+								<ContactCard target="_blank" accentColor="linkedIn">
 									<LinkedIn />
 								</ContactCard>
 							</Link>
 							<Link href={codeSandboxUrl} passHref>
-								<ContactCard target="_blank" theme="codeSandbox">
+								<ContactCard target="_blank" accentColor="codeSandbox">
 									<CodeSandbox />
 								</ContactCard>
 							</Link>
 							<Link href={`mailto:${email}`} passHref>
-								<ContactCard theme="mail">
+								<ContactCard accentColor="mail">
 									<MailIcon />
 								</ContactCard>
 							</Link>
