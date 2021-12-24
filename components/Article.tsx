@@ -11,8 +11,7 @@ const Container = styled.article`
 	--padding: var(--space-4);
 
 	border-radius: var(--rounded);
-	box-shadow: var(--shadow-sm);
-	border-bottom: 1px solid var(--color-gray-200);
+	box-shadow: var(--shadow-lg);
 	background-color: var(--color-white);
 
 	overflow: hidden;
@@ -57,7 +56,7 @@ const Footer = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	padding: var(--padding);
-	background-color: var(--color-${props => props.theme.color.neutral}-50);
+	background-color: var(--color-gray-50);
 `;
 
 const Article: React.FC<ArticleType & { isDescriptionShown?: boolean }> = ({

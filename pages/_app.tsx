@@ -24,10 +24,6 @@ html::-webkit-scrollbar {
 pre {
 	border-radius: var(--rounded);
 }
-
-body {
-	background-color: var(--color-${props => props.theme.color.neutral}-50);
-}
 `;
 
 export const routeTransitions = {
@@ -77,13 +73,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 				/>
 				<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 			</Head>
-			<ThemeProvider theme={{ color: { accent: 'blue', neutral: 'slate' } }}>
-				<CSSReset />
-				<GlobalStyles />
-				<AnimatePresence exitBeforeEnter>
-					<Component {...pageProps} key={router.route} />
-				</AnimatePresence>
-			</ThemeProvider>
+			<CSSReset />
+			<GlobalStyles />
+			<AnimatePresence exitBeforeEnter>
+				<Component {...pageProps} key={router.route} />
+			</AnimatePresence>
 		</Layout>
 	);
 }
