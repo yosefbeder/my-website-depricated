@@ -698,9 +698,9 @@
     eslint-visitor-keys "^2.0.0"
 
 "@yosefbeder/design-system@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@yosefbeder/design-system/-/design-system-2.3.0.tgz#fc2a5a607bb123d6fecae8cfe73ab6982065bb2e"
-  integrity sha512-R/SpA/OgCcYYlrIBEm/zp4bcmQ3yk0i/GhCxlC3N2j8T3xZqqa/eCruu1Vwf5SQ5ch220VfedhzG2yz8G9xZGA==
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@yosefbeder/design-system/-/design-system-2.3.1.tgz#dbd98725e77f4a1c7e3024a5046942f29705696f"
+  integrity sha512-wCpKgV1d5PtavtwHvoCEUCDcDcaYcSF2+6HNW6w/ZC9Q1Zl0PlinJFrbM6XXUKobqTc+KzzqXzPHPpXvzpsgNQ==
 
 acorn-jsx@^5.3.1:
   version "5.3.2"
