@@ -1,5 +1,5 @@
 import '@yosefbeder/design-system/index.css';
-import CSSReset from '@yosefbeder/design-system/css-reset.css';
+import '../index.css';
 import '../material-dark.css';
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
@@ -7,24 +7,9 @@ import Head from 'next/head';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import useFlashFix from '../hooks/useFlashFix';
-import { createGlobalStyle, css, ThemeProvider } from 'styled-components';
+import { css } from 'styled-components';
 import { breakPoints } from '@yosefbeder/design-system/constants';
 import '@yosefbeder/design-system/colors/slate.css';
-
-const GlobalStyles = createGlobalStyle`
-html {
-	scrollbar-width: none;
-	scroll-behavior: smooth;
-}
-
-html::-webkit-scrollbar {
-	width: 0;
-}
-
-pre {
-	border-radius: var(--rounded);
-}
-`;
 
 export const routeTransitions = {
 	hidden: { opacity: 0, y: 60 },
@@ -73,8 +58,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 				/>
 				<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 			</Head>
-			<CSSReset />
-			<GlobalStyles />
 			<AnimatePresence exitBeforeEnter>
 				<Component {...pageProps} key={router.route} />
 			</AnimatePresence>

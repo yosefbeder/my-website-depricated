@@ -1,0 +1,12 @@
+html {
+	scrollbar-width: none;
+	scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+	width: 0;
+}
+
+pre {
+	border-radius: var(--rounded);
+}
