@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 // Temporary fix to avoid flash of unstyled content (FOUC) during route transitions.
 // Keep an eye on this issue and remove this code when resolved: https://github.com/vercel/next.js/issues/17464
@@ -6,15 +6,15 @@ const useFlashFix = () =>
   useEffect(() => {
     // Gather all server-side rendered stylesheet entries.
     let ssrPageStyleSheetsEntries = Array.from(
-      document.querySelectorAll('link[rel="stylesheet"][data-n-p]'),
-    ).map(element => ({
+      document.querySelectorAll('link[rel="stylesheet"][data-n-p]')
+    ).map((element) => ({
       element,
-      href: element.getAttribute('href'),
+      href: element.getAttribute("href"),
     }));
 
     // Remove the `data-n-p` attribute to prevent Next.js from removing it early.
     ssrPageStyleSheetsEntries.forEach(({ element }) =>
-      element.removeAttribute('data-n-p'),
+      element.removeAttribute("data-n-p")
     );
 
     const fixedStyleHrefs: any = [];
@@ -24,11 +24,11 @@ const useFlashFix = () =>
       const newStyleEntries = mutations
         .filter(
           ({ target }: { [key: string]: any }) =>
-            target.nodeName === 'STYLE' && target.hasAttribute('data-n-href'),
+            target.nodeName === "STYLE" && target.hasAttribute("data-n-href")
         )
         .map(({ target }: { [key: string]: any }) => ({
           element: target,
-          href: target.getAttribute('data-n-href'),
+          href: target.getAttribute("data-n-href"),
         }));
 
       // Cycle through them and either:
@@ -40,8 +40,8 @@ const useFlashFix = () =>
         if (styleExists) {
           element.remove();
         } else {
-          element.setAttribute('data-fouc-fix-n-href', href);
-          element.removeAttribute('data-n-href');
+          element.setAttribute("data-fouc-fix-n-href", href);
+          element.removeAttribute("data-n-href");
           fixedStyleHrefs.push(href);
         }
       });
@@ -61,7 +61,7 @@ const useFlashFix = () =>
 
           return entries;
         },
-        [],
+        []
       );
     };
 
@@ -69,7 +69,7 @@ const useFlashFix = () =>
 
     observer.observe(document.head, {
       subtree: true,
-      attributeFilter: ['media'],
+      attributeFilter: ["media"],
     });
 
     return () => observer.disconnect();

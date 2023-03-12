@@ -843,10 +843,10 @@
     "@typescript-eslint/types" "4.33.0"
     eslint-visitor-keys "^2.0.0"
 
-"@yosefbeder/design-system@^2.3.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@yosefbeder/design-system/-/design-system-2.5.0.tgz#fcec1ce5dbd551029826fe636fd5872da7b57125"
-  integrity sha512-jrCjDN/lg3e1XlINZBu8lHRJ6Uaj8aXQQ81+u365AhsAKnmbsmocC8S8UfMt9s1OB4ZznQEKkVuCcTDUYIoaAQ==
+"@yosefbeder/design-system@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@yosefbeder/design-system/-/design-system-2.6.0.tgz#dbb5cf05e26ca9accf9937ee773ef1d6385e7626"
+  integrity sha512-H26hcBkecP1aF/u5v8TfGk32bEguQp8f8QRGTaxx4bGmsKqewuTdCQBMFI3QSpODUGsAblr10EuQrOl/LLMn7A==
   dependencies:
     react-select "^5.2.2"
 

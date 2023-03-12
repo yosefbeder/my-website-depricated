@@ -1,6 +1,6 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { ArticleType } from '../types';
+import fs from "fs/promises";
+import path from "path";
+import { ArticleType } from "../types";
 
 /*
   1. Loop over the files in data/articles
@@ -8,25 +8,25 @@ import { ArticleType } from '../types';
 */
 
 const getAllArticles = async (): Promise<ArticleType[]> => {
-	const dir = await fs.opendir(path.join(process.cwd(), 'pages/articles'));
+  const dir = await fs.opendir(path.join(process.cwd(), "pages/articles"));
 
-	const articles: ArticleType[] = [];
+  const articles: ArticleType[] = [];
 
-	for await (const dirrent of dir) {
-		if (dirrent.name !== 'index.tsx') {
-			const { metaData } = await import(`../pages/articles/${dirrent.name}`);
+  for await (const dirrent of dir) {
+    if (dirrent.name !== "index.tsx") {
+      const { metaData } = await import(`../pages/articles/${dirrent.name}`);
 
-			const id = dirrent.name.slice(0, dirrent.name.lastIndexOf('.'));
+      const id = dirrent.name.slice(0, dirrent.name.lastIndexOf("."));
 
-			articles.push({ id, ...metaData });
-		}
-	}
+      articles.push({ id, ...metaData });
+    }
+  }
 
-	articles.sort(
-		(a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-	);
+  articles.sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
 
-	return articles;
+  return articles;
 };
 
 export default getAllArticles;

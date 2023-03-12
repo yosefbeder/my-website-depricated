@@ -1,4 +1,4 @@
 export const fade = {
-	hidden: { opacity: 0 },
-	visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
 };

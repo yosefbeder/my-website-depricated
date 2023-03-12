@@ -1,5 +1,5 @@
-import { createStore, combineReducers } from 'redux';
-import tocReducer from './toc';
+import { createStore, combineReducers } from "redux";
+import tocReducer from "./toc";
 
 const store = createStore(combineReducers({ toc: tocReducer }));
 
